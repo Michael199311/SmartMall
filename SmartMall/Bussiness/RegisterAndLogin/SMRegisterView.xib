@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="6fL-Ew-xcq">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="307"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vz4-GO-SCr">
+                    <rect key="frame" x="27" y="74" width="266" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="266" id="UgV-Xa-ByR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="创建密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fuT-3v-5MZ">
+                    <rect key="frame" x="27" y="134" width="266" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="266" id="W1E-SQ-drI"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yb6-gD-5Ni">
+                    <rect key="frame" x="27" y="194" width="266" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="266" id="sRh-lP-yvc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Vz4-GO-SCr" firstAttribute="top" secondItem="6fL-Ew-xcq" secondAttribute="top" constant="74" id="8Lv-j4-WXx"/>
+                <constraint firstItem="Vz4-GO-SCr" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="QOR-bk-xCS"/>
+                <constraint firstItem="yb6-gD-5Ni" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="Tx2-Hf-YfR"/>
+                <constraint firstItem="yb6-gD-5Ni" firstAttribute="top" secondItem="fuT-3v-5MZ" secondAttribute="bottom" constant="30" id="eOc-hc-Kv3"/>
+                <constraint firstItem="fuT-3v-5MZ" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="lWQ-52-agM"/>
+                <constraint firstItem="fuT-3v-5MZ" firstAttribute="top" secondItem="Vz4-GO-SCr" secondAttribute="bottom" constant="30" id="nTG-d0-HW6"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="270" y="223.5"/>
+        </view>
+    </objects>
+</document>
