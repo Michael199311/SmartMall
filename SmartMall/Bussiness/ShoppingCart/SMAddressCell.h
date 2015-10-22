@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void(^buttonAction)(NSDictionary *info,NSInteger type);
 
 @interface SMAddressCell : UITableViewCell
 

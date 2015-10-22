@@ -8,6 +8,7 @@
 
 #import "CRBaseViewController.h"
 #import "UIDevice+CurrentDevice.h"
+#import "UIView+CRAdditions.h"
 
 @interface CRBaseViewController ()
 
@@ -33,7 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	//设置导航栏titleView
-	[self setNavigationTitle:[UIImage imageNamed:@"Nav_Logo"]];
+	//[self setNavigationTitle:[UIImage imageNamed:@"Nav_Logo"]];
+    self.navigationItem.titleView.backgroundColor = [UIColor orangeColor];
 	//添加整个APP的背景View
 	[self.view insertSubview:self.backgroundView atIndex:0];
 	//添加背景色/背景图片
@@ -64,7 +66,7 @@
 	if (!_navigationLeftButton) {
 		_navigationLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		_navigationLeftButton.frame = CGRectMake(15.0f, 2, 40.0f, 40.0f);
-		//[_navigationLeftButton makeCornerRadiusOfRadius:20.0f];
+		[_navigationLeftButton makeCornerRadiusOfRadius:20.0f];
 		[_navigationLeftButton addTarget:self action:@selector(leftButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	}
 	return _navigationLeftButton;
@@ -75,7 +77,7 @@
 	if (!_navigationRightButton) {
 		_navigationRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		_navigationRightButton.frame = CGRectMake(15.0f, 2, 40.0f, 40.0f);
-		//[_navigationRightButton makeCornerRadiusOfRadius:20.0f];
+		[_navigationRightButton makeCornerRadiusOfRadius:20.0f];
 		[_navigationRightButton addTarget:self action:@selector(rightButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	}
 	return _navigationRightButton;
@@ -148,7 +150,7 @@
 		NSString *contentTitle = (NSString *)navigationTitle;
 		UILabel *label = [[UILabel alloc] init];
 		label.text = contentTitle;
-		label.font = [UIFont fontWithName:@"HiraginoSansGB-W6" size:18];
+		label.font = [UIFont systemFontOfSize:18];
 		label.textColor = [UIColor whiteColor];
 		[label sizeToFit];
 		self.navigationItem.titleView = label;

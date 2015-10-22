@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="6fL-Ew-xcq">
+        <view contentMode="scaleToFill" id="6fL-Ew-xcq" customClass="SMRegisterView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="307"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -34,17 +34,54 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一秒完成注册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0c-id-3sg">
+                    <rect key="frame" x="109" y="26" width="102" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="48k-w9-Eb1"/>
+                        <constraint firstAttribute="width" constant="102" id="zbR-HV-yEA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-cJ-jD2">
+                    <rect key="frame" x="27" y="254" width="150" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="Qso-E7-WBy"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9D3-H2-WcF">
+                    <rect key="frame" x="218" y="254" width="75" height="30"/>
+                    <state key="normal" title="验证验证码"/>
+                    <connections>
+                        <action selector="checkSecurityCode:" destination="6fL-Ew-xcq" eventType="touchUpInside" id="sDf-g2-QIx"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="9D3-H2-WcF" firstAttribute="trailing" secondItem="yb6-gD-5Ni" secondAttribute="trailing" id="1Uo-3g-wNi"/>
+                <constraint firstItem="hTa-cJ-jD2" firstAttribute="top" secondItem="yb6-gD-5Ni" secondAttribute="bottom" constant="30" id="49Z-yb-hya"/>
                 <constraint firstItem="Vz4-GO-SCr" firstAttribute="top" secondItem="6fL-Ew-xcq" secondAttribute="top" constant="74" id="8Lv-j4-WXx"/>
+                <constraint firstItem="hTa-cJ-jD2" firstAttribute="leading" secondItem="yb6-gD-5Ni" secondAttribute="leading" id="GzJ-bh-zbM"/>
+                <constraint firstItem="e0c-id-3sg" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="JMf-Bf-zgs"/>
+                <constraint firstItem="9D3-H2-WcF" firstAttribute="centerY" secondItem="hTa-cJ-jD2" secondAttribute="centerY" id="Myb-eo-Myd"/>
                 <constraint firstItem="Vz4-GO-SCr" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="QOR-bk-xCS"/>
                 <constraint firstItem="yb6-gD-5Ni" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="Tx2-Hf-YfR"/>
                 <constraint firstItem="yb6-gD-5Ni" firstAttribute="top" secondItem="fuT-3v-5MZ" secondAttribute="bottom" constant="30" id="eOc-hc-Kv3"/>
                 <constraint firstItem="fuT-3v-5MZ" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="lWQ-52-agM"/>
                 <constraint firstItem="fuT-3v-5MZ" firstAttribute="top" secondItem="Vz4-GO-SCr" secondAttribute="bottom" constant="30" id="nTG-d0-HW6"/>
+                <constraint firstItem="e0c-id-3sg" firstAttribute="top" secondItem="6fL-Ew-xcq" secondAttribute="top" constant="26" id="nkV-Oz-n7n"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="ConfirmPW" destination="yb6-gD-5Ni" id="9ag-vC-2vo"/>
+                <outlet property="PWTextField" destination="fuT-3v-5MZ" id="Z7D-0B-lgl"/>
+                <outlet property="phoneNumber" destination="Vz4-GO-SCr" id="ThY-d7-WS9"/>
+                <outlet property="securityCode" destination="hTa-cJ-jD2" id="M2F-S6-Krf"/>
+            </connections>
             <point key="canvasLocation" x="270" y="223.5"/>
         </view>
     </objects>

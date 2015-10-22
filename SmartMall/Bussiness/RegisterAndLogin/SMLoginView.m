@@ -7,8 +7,16 @@
 //
 
 #import "SMLoginView.h"
+@interface SMLoginView()
+
+@end
 
 @implementation SMLoginView
+- (IBAction)forgetPW:(UIButton *)sender {
+    if (self.buttonActionBlock) {
+        self.buttonActionBlock(nil,0);
+    }
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

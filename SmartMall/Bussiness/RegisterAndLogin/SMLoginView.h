@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void(^buttonAction)(NSDictionary *info,NSInteger type);
 @interface SMLoginView : UIView
+@property (nonatomic, copy) buttonAction buttonActionBlock;
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
+@property (weak, nonatomic) IBOutlet UITextField *PassWord;
 
 @end

@@ -7,8 +7,16 @@
 //
 
 #import "SMRegisterView.h"
+@interface SMRegisterView()
+
+@end
 
 @implementation SMRegisterView
+- (IBAction)checkSecurityCode:(UIButton *)sender {
+    if (self.buttonActionBlock) {
+        self.buttonActionBlock(nil,0);
+    }
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

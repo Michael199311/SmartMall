@@ -1,0 +1,29 @@
+//
+//  SmartMall.pch
+//  SmartMall
+//
+//  Created by 庞启友 on 15/10/21.
+//  Copyright © 2015年 BIMA. All rights reserved.
+//
+
+#ifndef SmartMall_pch
+#define SmartMall_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import "UIView+Masony.h"
+#import "UIView+LayoutMethods.h"
+#import "UIView+CRAdditions.h"
+#import "SVProgressHUD.h"
+#import "NSString+Additions.h"
+
+#if DEBUG
+#define NSLog(fmt, ...)		NSLog((@"%@ [Line: %d] %s " fmt),[[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
+
+#endif /* SmartMall_pch */

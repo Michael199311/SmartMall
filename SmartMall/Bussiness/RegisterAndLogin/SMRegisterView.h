@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void(^buttonAction)(NSDictionary *info,NSInteger type);
 
 @interface SMRegisterView : UIView
-
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
+@property (weak, nonatomic) IBOutlet UITextField *PWTextField;
+@property (weak, nonatomic) IBOutlet UITextField *ConfirmPW;
+@property (weak, nonatomic) IBOutlet UITextField *securityCode;
+@property (copy, nonatomic) buttonAction buttonActionBlock;
 @end

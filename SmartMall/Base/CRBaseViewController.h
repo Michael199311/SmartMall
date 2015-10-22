@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVOSCloud/AVOSCloud.h>
+#import "UIStoryboard+CRInstantiate.h"
+#import "NSObject+MJKeyValue.h"
+
 @class CRNavigationBarView;
 
 typedef void (^CRHeadButtonAction)(UIButton *actionButton);

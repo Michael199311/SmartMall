@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SMGoodsCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+@property (weak, nonatomic) IBOutlet UILabel *price;
+@property (weak, nonatomic) IBOutlet UILabel *name;
 
 @end

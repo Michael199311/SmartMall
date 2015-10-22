@@ -36,10 +36,16 @@
                             <constraint firstAttribute="height" constant="30" id="SZS-Yh-6MI"/>
                         </constraints>
                         <state key="normal" title="➖"/>
+                        <connections>
+                            <action selector="reduce:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sFW-ot-jnP"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYZ-al-HJ6" userLabel="Plus">
                         <rect key="frame" x="173" y="80" width="30" height="30"/>
                         <state key="normal" title="➕"/>
+                        <connections>
+                            <action selector="add:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DB4-Fw-gj8"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDS-W3-UjL" userLabel="Choose">
                         <rect key="frame" x="16" y="50" width="20" height="20"/>
@@ -48,6 +54,9 @@
                             <constraint firstAttribute="width" constant="20" id="Uyh-9d-qBk"/>
                             <constraint firstAttribute="height" constant="20" id="y6c-3T-DUO"/>
                         </constraints>
+                        <connections>
+                            <action selector="choose:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0Vd-a4-TJG"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0dJ-rH-IPn">
                         <rect key="frame" x="40" y="10" width="65" height="100"/>
@@ -86,6 +95,13 @@
                     <constraint firstItem="GDS-W3-UjL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ydp-2h-jkF"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="chooseState" destination="GDS-W3-UjL" id="T6L-wq-G1J"/>
+                <outlet property="count" destination="gsQ-WU-w9m" id="U27-Qy-uhG"/>
+                <outlet property="image" destination="0dJ-rH-IPn" id="8IC-Hf-VQS"/>
+                <outlet property="name" destination="mLt-zh-QYi" id="zU0-9f-7ds"/>
+                <outlet property="price" destination="khw-SM-Es9" id="wbx-Ib-JBP"/>
+            </connections>
             <point key="canvasLocation" x="262" y="379"/>
         </tableViewCell>
     </objects>

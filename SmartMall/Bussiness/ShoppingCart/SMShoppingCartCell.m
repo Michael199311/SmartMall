@@ -19,5 +19,16 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)choose:(UIButton *)sender {
+    //改变按钮的背景颜色为红色
+    
+}
+
+- (IBAction)reduce:(UIButton *)sender {
+    self.amount --;
+}
+- (IBAction)add:(UIButton *)sender {
+    self.amount ++;
+}
 
 @end

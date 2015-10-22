@@ -110,6 +110,15 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="Address" destination="p9J-EW-Jp7" id="8no-tQ-Yix"/>
+                <outlet property="Distance" destination="xO9-6l-XXc" id="dHc-Si-C1S"/>
+                <outlet property="ImageView" destination="WQD-9f-yYT" id="Jxc-S6-R7j"/>
+                <outlet property="Kinds" destination="yKr-x8-MvF" id="TSS-Ew-wzz"/>
+                <outlet property="MerchantName" destination="meY-IA-pfF" id="2N7-tf-ynN"/>
+                <outlet property="MiniCost" destination="pCZ-d6-M6y" id="Edu-b6-geW"/>
+                <outlet property="OrderNumber" destination="quH-kA-aAT" id="ESC-ww-tDj"/>
+            </connections>
             <point key="canvasLocation" x="220" y="353.5"/>
         </tableViewCell>
     </objects>

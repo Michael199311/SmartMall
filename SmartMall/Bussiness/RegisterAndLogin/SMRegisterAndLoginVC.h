@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
-
-@interface SMRegisterAndLoginVC : UIViewController
+#import "CRBaseViewController.h"
+@interface SMRegisterAndLoginVC : CRBaseViewController
 
 
 
