@@ -14,5 +14,6 @@ typedef void(^buttonAction)(NSDictionary *info,NSInteger type);
 @property (weak, nonatomic) IBOutlet UITextField *PWTextField;
 @property (weak, nonatomic) IBOutlet UITextField *ConfirmPW;
 @property (weak, nonatomic) IBOutlet UITextField *securityCode;
+@property (weak, nonatomic) IBOutlet UIButton *checkButton;
 @property (copy, nonatomic) buttonAction buttonActionBlock;
 @end

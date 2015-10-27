@@ -8,7 +8,7 @@
 
 #import "CRBaseViewController.h"
 
-@interface SMShoppingCartVC : CRBaseViewController
+@interface SMShoppingCartVC : UIViewController
 
 @property (nonatomic, strong) NSArray *dataSource;
 

@@ -10,27 +10,42 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7g-1t-dfp">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7g-1t-dfp">
                     <rect key="frame" x="8" y="14" width="17" height="19"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="17" id="Xza-pU-LYI"/>
+                        <constraint firstAttribute="height" constant="19" id="myx-lL-4yR"/>
+                    </constraints>
                     <connections>
                         <action selector="chooseAll:" destination="iN0-l3-epB" eventType="touchUpInside" id="oru-Vh-d5u"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTn-Ia-e10">
-                    <rect key="frame" x="264" y="12" width="42" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30起送" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTn-Ia-e10">
+                    <rect key="frame" x="231" y="13" width="75" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="nLm-4h-4qL"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZW-P7-XCc">
-                    <rect key="frame" x="33" y="13" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="红星超市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZW-P7-XCc">
+                    <rect key="frame" x="35" y="12" width="186" height="23"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="OTn-Ia-e10" firstAttribute="centerY" secondItem="zZW-P7-XCc" secondAttribute="centerY" id="1cB-AS-jpy"/>
+                <constraint firstItem="W7g-1t-dfp" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="27V-qQ-5fz"/>
+                <constraint firstItem="zZW-P7-XCc" firstAttribute="centerY" secondItem="W7g-1t-dfp" secondAttribute="centerY" id="3lo-rk-8Ld"/>
+                <constraint firstItem="W7g-1t-dfp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="5Me-uY-zzf"/>
+                <constraint firstItem="zZW-P7-XCc" firstAttribute="leading" secondItem="W7g-1t-dfp" secondAttribute="trailing" constant="10" id="66J-YJ-gxX"/>
+                <constraint firstItem="OTn-Ia-e10" firstAttribute="leading" secondItem="zZW-P7-XCc" secondAttribute="trailing" constant="10" id="YSj-FK-L03"/>
+                <constraint firstAttribute="trailing" secondItem="OTn-Ia-e10" secondAttribute="trailing" constant="14" id="dqZ-XD-3Q0"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

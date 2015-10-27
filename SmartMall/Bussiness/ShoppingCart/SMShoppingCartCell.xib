@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金龙鱼橄榄食用调和油" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLt-zh-QYi" userLabel="GoodsInfo">
-                        <rect key="frame" x="109" y="10" width="199" height="30"/>
+                        <rect key="frame" x="120" y="10" width="188" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="nN2-Wd-MJc"/>
                         </constraints>
@@ -49,7 +49,6 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDS-W3-UjL" userLabel="Choose">
                         <rect key="frame" x="16" y="50" width="20" height="20"/>
-                        <color key="backgroundColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="Uyh-9d-qBk"/>
                             <constraint firstAttribute="height" constant="20" id="y6c-3T-DUO"/>
@@ -66,7 +65,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥45.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khw-SM-Es9" userLabel="Price">
-                        <rect key="frame" x="109" y="44" width="52" height="32"/>
+                        <rect key="frame" x="120" y="44" width="52" height="32"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -88,7 +87,7 @@
                     <constraint firstItem="gsQ-WU-w9m" firstAttribute="leading" secondItem="3A4-WD-umc" secondAttribute="trailing" id="Y9x-Xv-JMH"/>
                     <constraint firstItem="gsQ-WU-w9m" firstAttribute="top" secondItem="khw-SM-Es9" secondAttribute="bottom" constant="4" id="YYm-bw-kcF"/>
                     <constraint firstItem="OYZ-al-HJ6" firstAttribute="leading" secondItem="gsQ-WU-w9m" secondAttribute="trailing" id="Zyg-pF-aJp"/>
-                    <constraint firstItem="mLt-zh-QYi" firstAttribute="leading" secondItem="0dJ-rH-IPn" secondAttribute="trailing" constant="4" id="egL-hI-Myg"/>
+                    <constraint firstItem="mLt-zh-QYi" firstAttribute="leading" secondItem="0dJ-rH-IPn" secondAttribute="trailing" constant="15" id="egL-hI-Myg"/>
                     <constraint firstAttribute="trailingMargin" secondItem="mLt-zh-QYi" secondAttribute="trailing" constant="4" id="hfU-YF-hS9"/>
                     <constraint firstItem="OYZ-al-HJ6" firstAttribute="centerY" secondItem="gsQ-WU-w9m" secondAttribute="centerY" id="jeg-7B-HyT"/>
                     <constraint firstItem="0dJ-rH-IPn" firstAttribute="leading" secondItem="GDS-W3-UjL" secondAttribute="trailing" constant="4" id="lzP-Yr-Vgp"/>

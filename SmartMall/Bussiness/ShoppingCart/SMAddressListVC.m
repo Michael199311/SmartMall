@@ -21,6 +21,7 @@
     // Do any additional setup after loading the view.
 }
 - (IBAction)changeAddress:(UIButton *)sender {
+    //改变地址信息
 }
 
 - (void)didReceiveMemoryWarning {

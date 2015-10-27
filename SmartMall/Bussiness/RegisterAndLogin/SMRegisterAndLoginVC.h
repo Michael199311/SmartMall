@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "CRBaseViewController.h"
-@interface SMRegisterAndLoginVC : CRBaseViewController
+#import "SMLoginView.h"
+#import "SMRegisterView.h"
+#import "SMForgetPWView.h"
+@interface SMRegisterAndLoginVC : UIViewController
 
-
+@property (nonatomic, strong) SMLoginView *loginView;
+@property (nonatomic, strong) SMRegisterView *registerView;
+@property (nonatomic, strong) SMForgetPWView *forgetPWView;
 
 
 @end

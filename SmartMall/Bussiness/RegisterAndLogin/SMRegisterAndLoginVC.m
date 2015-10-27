@@ -7,14 +7,12 @@
 //
 
 #import "SMRegisterAndLoginVC.h"
-#import "SMLoginView.h"
-#import "SMRegisterView.h"
-#import "SMForgetPWView.h"
+
 #import "UIView+CRAdditions.h"
-#import <AVUser.h>
 #import "SMHomePageViewController.h"
 #import "UIStoryboard+CRInstantiate.h"
 #import "SMMerchantDetailVC.h"
+#import "SMModelUser.h"
 typedef enum{
     SMWelcomePageTypeRegister = 0,
     SMWelcomePageTypeLogin,
@@ -30,18 +28,16 @@ typedef enum{
     
     
 }
-@property (nonatomic, strong) SMLoginView *loginView;
-@property (nonatomic, strong) SMRegisterView *registerView;
-@property (nonatomic, strong) SMForgetPWView *forgetPWView;
+
 @end
 
 @implementation SMRegisterAndLoginVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    WelcomeType = SMWelcomePageTypeLogin;
     [self createView];
     [self activeButtonAction];
-    WelcomeType = SMWelcomePageTypeRegister;
     
 }
 
@@ -51,12 +47,16 @@ typedef enum{
 }
 - (IBAction)turnRegisterView:(UIButton *)sender {
     WelcomeType = SMWelcomePageTypeRegister;
+    statusView.frame = CGRectMake(sender.x, sender.y + sender.height +1, sender.width, 1);
     [self createView];
 }
-- (IBAction)turnLoginView:(id)sender {
+
+- (IBAction)turnLoginView:(UIButton *)sender {
+    statusView.frame = CGRectMake(sender.x, sender.y + sender.height +1, sender.width, 1);
     WelcomeType = SMWelcomePageTypeLogin;
     [self createView];
 }
+
 - (IBAction)finish:(UIButton *)sender {
     switch (WelcomeType) {
         case SMWelcomePageTypeLogin:
@@ -84,9 +84,17 @@ typedef enum{
             NSLog(@"登录成功");
             //保存用户信息
             [AVUser changeCurrentUser:user save:YES];
+            
+            SMModelUser *SMUser = [SMModelUser currentUser];
+            SMUser.name = username;
+            SMUser.phoneNumber = username;
+            //[SMModelUser saveUserToLocalWithUser:SMUser];
             //进入首页
             SMHomePageViewController *homePageVC = (SMHomePageViewController  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
-            [self presentViewController:homePageVC animated:YES completion:nil];
+            [self.navigationController pushViewController:homePageVC animated:YES];
+//            UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+//            homeController.selectedViewController = homeController.viewControllers[0];
+//            [self.navigationController pushViewController:homeController animated:YES];
             
             
 //            SMMerchantDetailVC *merchentDetailVC = (SMMerchantDetailVC  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"MerchantDetailVC" andStroyBoardNameString:@"Main"];
@@ -111,7 +119,9 @@ typedef enum{
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"注册成功");
-            [SVProgressHUD showSuccessWithStatus:@"这侧成功，请在5分钟内完成验证"];
+            [SVProgressHUD showSuccessWithStatus:@"注册成功，请在5分钟内完成验证"];
+            self.registerView.securityCode.hidden = NO;
+            self.registerView.checkButton.hidden = NO;
         }else{
             NSLog(@"注册失败:%@",error);
         }
@@ -157,7 +167,7 @@ typedef enum{
             case 0:
                 //忘记密码
                 WelcomeType = SMWelcomePageTypeForgetPW;
-                [weakSelf getSecurityCode];
+                //[weakSelf getSecurityCode];
                 [weakSelf createForgetPWView];
                 break;
                 
@@ -179,7 +189,7 @@ typedef enum{
 }
 
 - (void)getSecurityCode{
-    [AVUser requestPasswordResetWithPhoneNumber:@"18521508147" block:^(BOOL succeeded, NSError *error) {
+    [AVUser requestPasswordResetWithPhoneNumber:self.forgetPWView.phoneNumber.text block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"获取短信验证码成功");
         } else {
@@ -211,6 +221,8 @@ typedef enum{
 }
 
 - (void)createRegisterView{
+    self.registerView.securityCode.hidden = YES;
+    self.registerView.checkButton.hidden = YES;
     [self.loginView removeFromSuperview];
     [self.forgetPWView removeFromSuperview];
     [self.view addSubview:self.registerView];

@@ -24,8 +24,10 @@
     // Do any additional setup after loading the view.
 }
 - (IBAction)setAsDefaultAddress:(UISwitch *)sender {
+    //设为默认地址
 }
 - (IBAction)saveAddress:(UIButton *)sender {
+    //保存地址
 }
 
 

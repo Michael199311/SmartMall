@@ -27,32 +27,9 @@
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohm-JF-tVX" userLabel="进入商品详情">
                     <rect key="frame" x="8" y="446" width="304" height="50"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zCI-KO-QXU" userLabel="进入商品详情的箭头">
-                            <rect key="frame" x="270" y="10" width="30" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="30" id="Tjq-fV-Jdb"/>
-                                <constraint firstAttribute="height" constant="30" id="nzI-bh-930"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品详情" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hsm-mr-1Re">
-                            <rect key="frame" x="0.0" y="15" width="68" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="BFe-y3-Kj4"/>
-                                <constraint firstAttribute="width" constant="68" id="TA4-KP-c9c"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="IaS-p2-sWW"/>
-                        <constraint firstItem="Hsm-mr-1Re" firstAttribute="centerY" secondItem="ohm-JF-tVX" secondAttribute="centerY" id="SgS-8L-huv"/>
-                        <constraint firstItem="zCI-KO-QXU" firstAttribute="centerY" secondItem="ohm-JF-tVX" secondAttribute="centerY" id="TBt-Na-Kl7"/>
-                        <constraint firstAttribute="trailing" secondItem="zCI-KO-QXU" secondAttribute="trailing" constant="4" id="p5n-Mr-GBx"/>
-                        <constraint firstItem="Hsm-mr-1Re" firstAttribute="leading" secondItem="ohm-JF-tVX" secondAttribute="leading" id="qUO-DE-xrY"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金龙鱼 橄榄食用调和油" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntc-39-AHP">

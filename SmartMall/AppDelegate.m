@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "UINavigationController+CRCustomNavigationController.h"
+#import "UIStoryboard+CRInstantiate.h"
+#import "SMHomePageViewController.h"
+#import "SMRegisterAndLoginVC.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +25,10 @@
     // Override point for customization after application launch.
     [AVOSCloud setApplicationId:@"pcyalv4v2pufgejdxrpe6b1fvvuorkhm76tyzzri67p9iy4i"
                       clientKey:@"98efzkhtjyfxko9dd90nyi974zmgjr9u19zaax16k7xfz7k6"];
+    //配置导航栏
+    //[self initNavigation];
+    //设置初始界面
+    //[self setWindowRootViewController];
     return YES;
 }
 
@@ -47,6 +55,71 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
+
+#pragma mark- private method
+- (void)initNavigation
+{
+    [UINavigationController setNavigationBarBackgroundColor:[UIColor orangeColor]];
+    [UINavigationController setNavigationBarBackImage:[UIImage imageNamed:@"register-back"]];//返回按钮设置
+    [UINavigationController setNavigationBarButtonItemAttribute:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [UINavigationController setNavigationBarTitleAttribute:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    //状态栏高亮
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (UIViewController *)creatLoginController
+{
+    //登录页面
+    SMRegisterAndLoginVC *loginController = (SMRegisterAndLoginVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"RegisterAndLogin" andStroyBoardNameString:@"Main"];
+    [loginController.view bringSubviewToFront:loginController.loginView];
+    return loginController;
+}
+
+- (UIViewController *)creatHomeViewController
+{
+    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+    return homeController;
+}
+
+- (void)setWindowRootViewController
+{
+    AVUser *user = [AVUser currentUser];
+    if (user == nil) {
+        [self.window setRootViewController:[self creatLoginController]];
+    }else{
+        [self.window setRootViewController:[self creatHomeViewController]];
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #pragma mark - Core Data stack
 

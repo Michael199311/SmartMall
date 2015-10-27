@@ -85,6 +85,7 @@
 //    if (data) {
 //        cell.ImageView.image = [UIImage imageWithData:data];
 //    }
+    cell.ImageView.image = [UIImage imageNamed:@"commoditySample"];
     return cell;
 }
 
@@ -95,7 +96,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    SMMerchant *merchant = self.dataSource[indexPath.row];
+    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+    SMMerchantDetailVC *MerchantDetailVC = homeController.viewControllers[0];
+    MerchantDetailVC.mcEncode = merchant.mcEncode;
+    homeController.selectedViewController = MerchantDetailVC;
+    [self.navigationController pushViewController:homeController animated:YES];
+    //[self presentViewController:homePageVC animated:YES completion:nil];
+    //[self.navigationController pushViewController:homeController animated:YES];
 }
 
 - (NSMutableArray *)dataSource{
@@ -116,11 +124,6 @@
     NSLog(@"%@,%@",self.currentLatitude,self.currentLongitude);
 }
 
-- (SMHomePageView *)tableView{
-    if (!_tableView) {
-        _tableView = [[SMHomePageView alloc] init];
-    }
-    return _tableView;
-}
+
 
 @end

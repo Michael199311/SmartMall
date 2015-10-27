@@ -11,6 +11,7 @@
 #import "NSString+Additions.h"
 #import "SMClassifyDetailVC.h"
 
+
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
@@ -49,10 +50,15 @@
             
             if ([NSString isNotEmptyString:str2]) {
                 NSArray *arr2 = dic[str2];
-                [arr addObject:arr2];
+                if (arr2 && arr2.count != 0) {
+                    [arr addObject:arr2];
+                }
             }
         }
-        [self.level3 addObject:arr];
+        if (arr && arr.count != 0) {
+            [self.level3 addObject:arr];
+        }
+        
     }
     
 
@@ -81,7 +87,7 @@
                     
                     rightMeun * meun2=[[rightMeun alloc] init];
                     meun2.meunName=self.level3[i][j][z];
-                    
+                    meun2.meunNumber = j;
                     [zList addObject:meun2];
                 }
             meun1.nextArray=zList;
@@ -103,9 +109,11 @@
     MultilevelMenu * view=[[MultilevelMenu alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) WithData:lis withSelectIndex:^(NSInteger left, NSInteger right,rightMeun* info) {
         SMClassifyDetailVC *classifyDetailVC = (SMClassifyDetailVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ClassifyDetailVC" andStroyBoardNameString:@"Main"];
         
-        classifyDetailVC.classId = @"";
-        classifyDetailVC.buttonTitles = self.level3[left][right];
-        classifyDetailVC.mcEncode = @"";
+        //classifyDetailVC.classId = [NSString stringWithFormat:@"%lX%2ld%2ld",left+65,(long)info.meunNumber,(long)right];
+        classifyDetailVC.classId = @"A0001";
+        classifyDetailVC.buttonTitles = self.level3[left][info.meunNumber];
+        classifyDetailVC.mcEncode = @"SH100001";
+        //[self presentViewController:classifyDetailVC animated:YES completion:nil];
         [self.navigationController pushViewController:classifyDetailVC animated:YES];
                         
         NSLog(@"左边：%ld,右边：%ld",(long)left,(long)right);

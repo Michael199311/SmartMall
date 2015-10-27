@@ -8,6 +8,6 @@
 
 #import "CRBaseViewController.h"
 
-@interface SMSubmitOrderVC : CRBaseViewController
+@interface SMSubmitOrderVC : UIViewController
 
 @end

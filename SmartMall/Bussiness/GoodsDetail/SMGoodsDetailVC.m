@@ -8,12 +8,17 @@
 
 #import "SMGoodsDetailVC.h"
 #import "SMModelCommodity.h"
+#import "SMShoppingCartVC.h"
+#import "SMModelUser.h"
 
 @interface SMGoodsDetailVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *detail;
+@property (weak, nonatomic) IBOutlet UIButton *shoppingCart;
+@property (weak, nonatomic) IBOutlet UIButton *addToShoppingCart;
+
 @property (strong, nonatomic) SMModelCommodity *commodity;
 @end
 
@@ -21,11 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SMModelUser *user = [SMModelUser currentUser];
+    [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)user.commoditysArray.count] forState:UIControlStateNormal];
     NSDictionary *param = @{
-//                            @"mcEncode":self.mcEncode,
-//                            @"cmdyEncode":self.cmdyEncode
-                            @"mcEncode":@"SH100001",
-                            @"cmdyEncode":@"D0103002"
+                            @"mcEncode":self.mcEncode,
+                            @"cmdyEncode":self.cmdyEncode
                             };
     [AVCloud callFunctionInBackground:@"GetCmdyInfo" withParameters:param block:^(NSDictionary *dic, NSError *error) {
         if (error) {
@@ -42,9 +47,30 @@
     if (data) {
         self.image.image = [UIImage imageWithData:data];
     }
-    self.price.text = [self.commodity.price stringValue];
+    self.price.text = [NSString stringWithFormat:@"￥%@",[self.commodity.price stringValue]] ;
     self.name.text = self.commodity.cmdyName;
 }
+
+- (IBAction)turnToShoppingCart:(UIButton *)sender {
+    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+    homeController.selectedViewController = homeController.viewControllers[1];
+    
+    [self.navigationController pushViewController:homeController animated:YES];
+
+    //[self presentViewController:homeController animated:YES completion:nil];
+}
+
+- (IBAction)addToShoppingCart:(UIButton *)sender {
+    SMModelUser *user = [SMModelUser currentUser];
+
+    [user.commoditysArray addObject:self.commodity];
+    [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)user.commoditysArray.count] forState:UIControlStateNormal];
+
+}
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

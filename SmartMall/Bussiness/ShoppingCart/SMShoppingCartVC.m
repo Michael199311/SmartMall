@@ -11,7 +11,8 @@
 #import "SMModelCommodity.h"
 #import "SMShoppingCartHeader.h"
 #import "UIView+CRAdditions.h"
-
+#import "SMModelUser.h"
+#import "SMSubmitOrderVC.h"
 @interface SMShoppingCartVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalCost;
@@ -23,6 +24,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataSource = [SMModelUser currentUser].commoditysArray;
+    double cost = 0;
+    for (SMModelCommodity *commodity in self.dataSource) {
+        cost += [commodity.price doubleValue];
+    }
+    self.totalCost.text = [NSString stringWithFormat:@"合计:￥%.2f",cost];
+    [self.payButon setTitle:[NSString stringWithFormat:@"去结算:(%lu)",(unsigned long)self.dataSource.count] forState:UIControlStateNormal];
     [self.tableView registerNib:[UINib nibWithNibName:@"SMShoppingCartCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     // Do any additional setup after loading the view.
 }
@@ -35,8 +43,9 @@
     }
 }
 - (IBAction)pay:(UIButton *)sender {
-    
-    
+    SMSubmitOrderVC *vc = (SMSubmitOrderVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ConfirmOrder" andStroyBoardNameString:@"Main"];
+    //[self presentViewController:vc animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,8 +68,10 @@
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.url]];
     if (data) {
         cell.image.image = [UIImage imageWithData:data];
+    }else{
+        cell.image.image = [UIImage imageNamed:@"commoditySample"];
     }
-    cell.price.text = commodity.price;
+    cell.price.text = [commodity.price stringValue];;
     cell.name.text = commodity.cmdyName;
     return cell;
 }
@@ -80,9 +91,18 @@
             //选中该section的所有商品
         }
     };
-    header.introduction.text = @"";
-    header.minCost.text = @"";
+    header.introduction.text = @"红星超市";
+    header.minCost.text = @"30起送";
     return header;
+}
+
+
+- (NSArray *)dataSource{
+    if (!_dataSource) {
+        SMModelUser *user = [SMModelUser currentUser];
+        _dataSource = user.commoditysArray;
+    }
+    return _dataSource;
 }
 /*
 #pragma mark - Navigation

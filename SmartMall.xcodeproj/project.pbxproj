@@ -82,6 +82,7 @@
 		4C8027FF1BD74F03009D1865 /* SMAddressListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8027FE1BD74F03009D1865 /* SMAddressListVC.m */; settings = {ASSET_TAGS = (); }; };
 		4C8028021BD75A15009D1865 /* SMAddAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8028011BD75A15009D1865 /* SMAddAddressVC.m */; settings = {ASSET_TAGS = (); }; };
 		4C8028061BD8AFFC009D1865 /* SMHomePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8028051BD8AFFC009D1865 /* SMHomePageView.m */; settings = {ASSET_TAGS = (); }; };
+		4CCE017A1BDD0F8C00FA0093 /* CRDataSotreManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCE01791BDD0F8C00FA0093 /* CRDataSotreManage.m */; settings = {ASSET_TAGS = (); }; };
 		4CF61C6C1BD12A1000495356 /* CRBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61C6B1BD12A1000495356 /* CRBaseViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CF61C8D1BD12B0700495356 /* CRAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61C6F1BD12B0700495356 /* CRAnimationManager.m */; settings = {ASSET_TAGS = (); }; };
 		4CF61C8F1BD12B0700495356 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61C731BD12B0700495356 /* NSDate+Additions.m */; settings = {ASSET_TAGS = (); }; };
@@ -107,6 +108,12 @@
 		4CF61CB51BD1FBD600495356 /* SMHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61CB41BD1FBD600495356 /* SMHomePageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CF61CB61BD1FC4F00495356 /* SMHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61CB41BD1FBD600495356 /* SMHomePageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4CF61CB71BD1FC5000495356 /* SMHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61CB41BD1FBD600495356 /* SMHomePageViewController.m */; settings = {ASSET_TAGS = (); }; };
+		4CF85AB81BDE3C980084EA5D /* SMModelUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF85AB71BDE3C980084EA5D /* SMModelUser.m */; settings = {ASSET_TAGS = (); }; };
+		4CF85AC21BDE53F40084EA5D /* CRHoshiTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF85ABB1BDE53F40084EA5D /* CRHoshiTextField.m */; settings = {ASSET_TAGS = (); }; };
+		4CF85AC31BDE53F40084EA5D /* CRMinoruTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF85ABD1BDE53F40084EA5D /* CRMinoruTextField.m */; settings = {ASSET_TAGS = (); }; };
+		4CF85AC41BDE53F40084EA5D /* CRTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF85ABF1BDE53F40084EA5D /* CRTextField.m */; settings = {ASSET_TAGS = (); }; };
+		4CF85AC51BDE53F40084EA5D /* CRTextFieldFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF85AC11BDE53F40084EA5D /* CRTextFieldFormat.m */; settings = {ASSET_TAGS = (); }; };
+		4CF85B0E1BDE6F5F0084EA5D /* SMMerchantCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF85B0D1BDE6F5F0084EA5D /* SMMerchantCollectionView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +270,8 @@
 		4C8028031BD75C8F009D1865 /* SmartMall.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartMall.pch; sourceTree = "<group>"; };
 		4C8028041BD8AFFC009D1865 /* SMHomePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMHomePageView.h; sourceTree = "<group>"; };
 		4C8028051BD8AFFC009D1865 /* SMHomePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMHomePageView.m; sourceTree = "<group>"; };
+		4CCE01781BDD0F8C00FA0093 /* CRDataSotreManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRDataSotreManage.h; sourceTree = "<group>"; };
+		4CCE01791BDD0F8C00FA0093 /* CRDataSotreManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRDataSotreManage.m; sourceTree = "<group>"; };
 		4CF61C6A1BD12A1000495356 /* CRBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRBaseViewController.h; sourceTree = "<group>"; };
 		4CF61C6B1BD12A1000495356 /* CRBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRBaseViewController.m; sourceTree = "<group>"; };
 		4CF61C6E1BD12B0700495356 /* CRAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRAnimationManager.h; sourceTree = "<group>"; };
@@ -292,6 +301,18 @@
 		4CF61CAB1BD1440A00495356 /* level1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = level1.json; sourceTree = "<group>"; };
 		4CF61CB31BD1FBD600495356 /* SMHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMHomePageViewController.h; sourceTree = "<group>"; };
 		4CF61CB41BD1FBD600495356 /* SMHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMHomePageViewController.m; sourceTree = "<group>"; };
+		4CF85AB61BDE3C980084EA5D /* SMModelUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMModelUser.h; sourceTree = "<group>"; };
+		4CF85AB71BDE3C980084EA5D /* SMModelUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMModelUser.m; sourceTree = "<group>"; };
+		4CF85ABA1BDE53F40084EA5D /* CRHoshiTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRHoshiTextField.h; sourceTree = "<group>"; };
+		4CF85ABB1BDE53F40084EA5D /* CRHoshiTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRHoshiTextField.m; sourceTree = "<group>"; };
+		4CF85ABC1BDE53F40084EA5D /* CRMinoruTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRMinoruTextField.h; sourceTree = "<group>"; };
+		4CF85ABD1BDE53F40084EA5D /* CRMinoruTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRMinoruTextField.m; sourceTree = "<group>"; };
+		4CF85ABE1BDE53F40084EA5D /* CRTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTextField.h; sourceTree = "<group>"; };
+		4CF85ABF1BDE53F40084EA5D /* CRTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTextField.m; sourceTree = "<group>"; };
+		4CF85AC01BDE53F40084EA5D /* CRTextFieldFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTextFieldFormat.h; sourceTree = "<group>"; };
+		4CF85AC11BDE53F40084EA5D /* CRTextFieldFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTextFieldFormat.m; sourceTree = "<group>"; };
+		4CF85B0C1BDE6F5F0084EA5D /* SMMerchantCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMerchantCollectionView.h; sourceTree = "<group>"; };
+		4CF85B0D1BDE6F5F0084EA5D /* SMMerchantCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMerchantCollectionView.m; sourceTree = "<group>"; };
 		8DB65A3FCD0E467571F1C8F8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B651462422BEC96E3AA98729 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EA77E80D84C56B833A883913 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -442,6 +463,8 @@
 				4C8028051BD8AFFC009D1865 /* SMHomePageView.m */,
 				4C8027A31BD4E24F009D1865 /* SMMerchantDetailVC.h */,
 				4C8027A41BD4E24F009D1865 /* SMMerchantDetailVC.m */,
+				4CF85B0C1BDE6F5F0084EA5D /* SMMerchantCollectionView.h */,
+				4CF85B0D1BDE6F5F0084EA5D /* SMMerchantCollectionView.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -652,6 +675,7 @@
 		4CF61CA11BD142B200495356 /* Venders */ = {
 			isa = PBXGroup;
 			children = (
+				4CF85AB91BDE53F40084EA5D /* CRTextField */,
 				4C8027C31BD519E2009D1865 /* SDWebImage */,
 				4C8027AF1BD519DA009D1865 /* MultilevelMenu */,
 				4C8027801BD4D7BB009D1865 /* MJExtension */,
@@ -667,10 +691,29 @@
 				4CF61CAB1BD1440A00495356 /* level1.json */,
 				4C80277D1BD4D620009D1865 /* SMMerchant.h */,
 				4C80277E1BD4D620009D1865 /* SMMerchant.m */,
+				4CCE01781BDD0F8C00FA0093 /* CRDataSotreManage.h */,
+				4CCE01791BDD0F8C00FA0093 /* CRDataSotreManage.m */,
 				4C8027A61BD4E5D6009D1865 /* SMModelCommodity.h */,
 				4C8027A71BD4E5D6009D1865 /* SMModelCommodity.m */,
+				4CF85AB61BDE3C980084EA5D /* SMModelUser.h */,
+				4CF85AB71BDE3C980084EA5D /* SMModelUser.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4CF85AB91BDE53F40084EA5D /* CRTextField */ = {
+			isa = PBXGroup;
+			children = (
+				4CF85ABA1BDE53F40084EA5D /* CRHoshiTextField.h */,
+				4CF85ABB1BDE53F40084EA5D /* CRHoshiTextField.m */,
+				4CF85ABC1BDE53F40084EA5D /* CRMinoruTextField.h */,
+				4CF85ABD1BDE53F40084EA5D /* CRMinoruTextField.m */,
+				4CF85ABE1BDE53F40084EA5D /* CRTextField.h */,
+				4CF85ABF1BDE53F40084EA5D /* CRTextField.m */,
+				4CF85AC01BDE53F40084EA5D /* CRTextFieldFormat.h */,
+				4CF85AC11BDE53F40084EA5D /* CRTextFieldFormat.m */,
+			);
+			path = CRTextField;
 			sourceTree = "<group>";
 		};
 		CD0EF951117F670E9E362253 /* Frameworks */ = {
@@ -865,6 +908,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CF85B0E1BDE6F5F0084EA5D /* SMMerchantCollectionView.m in Sources */,
 				4C80279F1BD4D7BC009D1865 /* MJTypeEncoding.m in Sources */,
 				4C80277F1BD4D620009D1865 /* SMMerchant.m in Sources */,
 				4C8027E61BD519E2009D1865 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -900,10 +944,12 @@
 				4C8027AB1BD4EFD8009D1865 /* SMGoodsDetailVC.m in Sources */,
 				4C8027A51BD4E24F009D1865 /* SMMerchantDetailVC.m in Sources */,
 				4C8027AE1BD51928009D1865 /* SMClassifyVC.m in Sources */,
+				4CCE017A1BDD0F8C00FA0093 /* CRDataSotreManage.m in Sources */,
 				4C8027E71BD519E2009D1865 /* SDWebImageManager.m in Sources */,
 				4CF61C911BD12B0700495356 /* NSString+Additions.m in Sources */,
 				4C0954BF1BCD25F200CEFE21 /* SMMarketListCell.m in Sources */,
 				4C0954B91BCCD46C00CEFE21 /* SMForgetPWView.m in Sources */,
+				4CF85AC21BDE53F40084EA5D /* CRHoshiTextField.m in Sources */,
 				4C8027FF1BD74F03009D1865 /* SMAddressListVC.m in Sources */,
 				4C80279C1BD4D7BC009D1865 /* MJMember.m in Sources */,
 				4C8027F11BD5312F009D1865 /* SMClassifyDetailVC.m in Sources */,
@@ -917,6 +963,7 @@
 				4CF61C9B1BD12B0700495356 /* UIView+LayoutMethods.m in Sources */,
 				4CF61C901BD12B0700495356 /* NSObject+Additions.m in Sources */,
 				4C0954631BCBE79900CEFE21 /* main.m in Sources */,
+				4CF85AC51BDE53F40084EA5D /* CRTextFieldFormat.m in Sources */,
 				4C8027F71BD73710009D1865 /* SMShoppingCartHeader.m in Sources */,
 				4C8027C21BD519DA009D1865 /* MultilevelMenu.m in Sources */,
 				4C8027E11BD519E2009D1865 /* NSData+ImageContentType.m in Sources */,
@@ -925,13 +972,16 @@
 				4C8027E91BD519E2009D1865 /* UIButton+WebCache.m in Sources */,
 				4C8027EE1BD519E2009D1865 /* UIView+WebCacheOperation.m in Sources */,
 				4C8028061BD8AFFC009D1865 /* SMHomePageView.m in Sources */,
+				4CF85AC41BDE53F40084EA5D /* CRTextField.m in Sources */,
 				4CF61C8D1BD12B0700495356 /* CRAnimationManager.m in Sources */,
 				4C80279D1BD4D7BC009D1865 /* MJMethod.m in Sources */,
 				4C8027E51BD519E2009D1865 /* SDWebImageDownloader.m in Sources */,
 				4C8027A01BD4D7BC009D1865 /* NSObject+MJCoding.m in Sources */,
 				4C8027981BD4D7BB009D1865 /* MJArgument.m in Sources */,
 				4C0954C91BCE73AB00CEFE21 /* SMClassifyCell.m in Sources */,
+				4CF85AB81BDE3C980084EA5D /* SMModelUser.m in Sources */,
 				4C09546F1BCBE79900CEFE21 /* SmartMall.xcdatamodeld in Sources */,
+				4CF85AC31BDE53F40084EA5D /* CRMinoruTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

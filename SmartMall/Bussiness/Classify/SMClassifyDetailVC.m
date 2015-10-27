@@ -11,10 +11,11 @@
 #import "SMGoodsCell.h"
 #import "SMGoodsDetailVC.h"
 
-@interface SMClassifyDetailVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface SMClassifyDetailVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
 @property (strong, nonatomic) NSMutableArray *buttonArray;
 @property (strong, nonatomic) NSMutableArray *dataSource;
-@property (strong, nonatomic) UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 
 @end
 
@@ -22,8 +23,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createButtons];
+    //[self createButtons];
     [self.collectionView registerNib:[UINib nibWithNibName:@"SMGoodsCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [self loadData];
     // Do any additional setup after loading the view.
 }
 
@@ -33,7 +35,15 @@
 }
 
 - (void)createButtons{
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, self.buttonTitles.count * 100, 40)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, 40)];
+    scrollView.delegate = self;
+    scrollView.contentSize = CGSizeMake(100*self.buttonTitles.count, 40);
+    scrollView.backgroundColor = [UIColor orangeColor];
+    [scrollView flashScrollIndicators];
+    scrollView.pagingEnabled = YES;
+    // 是否同时运动,lock
+    scrollView.directionalLockEnabled = YES;
+    [self.view addSubview:scrollView];
     int width = scrollView.frame.size.width/self.buttonTitles.count;
     int height = scrollView.frame.size.height - 0.7;
     for (int i = 0; i < self.buttonTitles.count; i ++) {
@@ -46,8 +56,8 @@
         button.titleLabel.font = [UIFont systemFontOfSize:18];
         [button addTarget:self action:@selector(turn:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = i;
-        button.backgroundColor = [UIColor clearColor];
-        [button setTintColor:[UIColor orangeColor]];
+        button.backgroundColor = [UIColor greenColor];
+        [button setTintColor:[UIColor grayColor]];
         button.enabled = YES;
         [scrollView addSubview:button];
         [self.buttonArray addObject:button];
@@ -62,7 +72,6 @@
     //改变分类
     self.classId = @"";
     [self loadData];
-    [self.collectionView reloadData];
 }
 
 - (void)loadData{
@@ -73,9 +82,14 @@
                             @"jump":@0
                             };
     [AVCloud callFunctionInBackground:@"cmGetCmdyList" withParameters:param block:^(NSArray *arr, NSError *error) {
+        if (error) {
+            NSLog(@"获取商品列表失败:%@",error);
+        }else{
         for (NSDictionary *dic in arr) {
             SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
             [self.dataSource addObject:commodity];
+            [self.collectionView reloadData];
+        }
         }
     }];
 }
@@ -97,7 +111,7 @@
     if (data) {
         cell.image.image = [UIImage imageWithData:data];
     }
-    cell.price.text = commodity.price;
+    cell.price.text = [commodity.price stringValue];;
     cell.name.text = commodity.cmdyEncode;
     
     return cell;
@@ -111,14 +125,33 @@
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    CGSize size={self.view.width,44};
+    return size;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     SMModelCommodity *commodity = self.dataSource[indexPath.row];
     SMGoodsDetailVC *goodsDetailVC = (SMGoodsDetailVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"CommedityDetailVC" andStroyBoardNameString:@"Main"];
     goodsDetailVC.mcEncode = self.mcEncode;
     goodsDetailVC.cmdyEncode = commodity.cmdyEncode;
     [self.navigationController pushViewController:goodsDetailVC animated:YES];
+    //[self presentViewController:goodsDetailVC animated:YES completion:nil];
 }
 
+- (NSMutableArray *)buttonArray{
+    if (!_buttonArray) {
+        _buttonArray = [[NSMutableArray alloc] init];
+    }
+    return _buttonArray;
+}
+
+- (NSMutableArray *)dataSource{
+    if (!_dataSource) {
+        _dataSource = [[NSMutableArray alloc] init];
+    }
+    return _dataSource;
+}
 /*
 #pragma mark - Navigation
 

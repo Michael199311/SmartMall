@@ -8,7 +8,7 @@
 
 #import "CRBaseViewController.h"
 
-@interface SMGoodsDetailVC : CRBaseViewController
+@interface SMGoodsDetailVC : UIViewController
 
 @property (nonatomic, strong) NSString *cmdyEncode;
 @property (nonatomic, strong) NSString *mcEncode;

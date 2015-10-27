@@ -8,6 +8,6 @@
 
 #import "CRBaseViewController.h"
 
-@interface SMAddressListVC : CRBaseViewController
+@interface SMAddressListVC : UIViewController
 
 @end
