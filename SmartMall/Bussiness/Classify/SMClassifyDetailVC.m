@@ -110,16 +110,18 @@
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.url]];
     if (data) {
         cell.image.image = [UIImage imageWithData:data];
+    }else{
+        cell.image.image = [UIImage imageNamed:@"commoditySample"];
     }
     cell.price.text = [commodity.price stringValue];;
-    cell.name.text = commodity.cmdyEncode;
+    cell.name.text = commodity.cmdyName;
     
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(self.collectionView.frame.size.width/4 , self.collectionView.frame.size.width/4);
+    return CGSizeMake(106 , 131);
 }
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     return UIEdgeInsetsMake(0, 0, 0, 0);

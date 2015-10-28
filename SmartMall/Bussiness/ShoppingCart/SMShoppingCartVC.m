@@ -64,7 +64,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SMShoppingCartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     SMModelCommodity *commodity = self.dataSource[indexPath.row];
-    cell.count.text = [NSString stringWithFormat:@"%ld",(long)cell.amount];
+    //cell.count.text = [NSString stringWithFormat:@"%ld",(long)cell.amount];
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.url]];
     if (data) {
         cell.image.image = [UIImage imageWithData:data];

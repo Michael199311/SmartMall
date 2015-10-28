@@ -1131,11 +1131,15 @@
 			baseConfigurationReference = EA77E80D84C56B833A883913 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: JIAN XU (HJ7Z5MW5GU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: JIAN XU (HJ7Z5MW5GU)";
 				GCC_PREFIX_HEADER = SmartMall/SmartMall.pch;
 				INFOPLIST_FILE = SmartMall/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bima.SmartMall;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.tac.-.CarRentalTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2c59e6ba-c6fa-4c5b-b04d-eff252698a2a";
 			};
 			name = Debug;
 		};
@@ -1144,11 +1148,15 @@
 			baseConfigurationReference = B651462422BEC96E3AA98729 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: JIAN XU (HJ7Z5MW5GU)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: JIAN XU (HJ7Z5MW5GU)";
 				GCC_PREFIX_HEADER = SmartMall/SmartMall.pch;
 				INFOPLIST_FILE = SmartMall/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bima.SmartMall;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.tac.-.CarRentalTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2c59e6ba-c6fa-4c5b-b04d-eff252698a2a";
 			};
 			name = Release;
 		};
@@ -1158,7 +1166,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SmartMallTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bima.SmartMallTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.tac.-.CarRentalTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartMall.app/SmartMall";
 			};
@@ -1170,7 +1178,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SmartMallTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bima.SmartMallTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.tac.-.CarRentalTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartMall.app/SmartMall";
 			};
@@ -1181,7 +1189,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = SmartMallUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bima.SmartMallUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.tac.-.CarRentalTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = SmartMall;
 				USES_XCTRUNNER = YES;
@@ -1193,7 +1201,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = SmartMallUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bima.SmartMallUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.tac.-.CarRentalTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = SmartMall;
 				USES_XCTRUNNER = YES;

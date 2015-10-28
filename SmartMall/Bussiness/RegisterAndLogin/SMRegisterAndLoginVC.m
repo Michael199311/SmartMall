@@ -24,8 +24,11 @@ typedef enum{
     UITextField *Phone;
     UITextField *NewPW;
     UITextField *ConfirmPW;
-    __weak IBOutlet UIView *statusView;
+    UIView *statusView;
+    __weak IBOutlet UIButton *registerButton;
+    __weak IBOutlet UIButton *loginButton;
     
+    __weak IBOutlet UIButton *finishButton;
     
 }
 
@@ -36,6 +39,10 @@ typedef enum{
 - (void)viewDidLoad {
     [super viewDidLoad];
     WelcomeType = SMWelcomePageTypeLogin;
+    statusView = [[UIView alloc] init];
+    statusView.frame = CGRectMake(loginButton.x , loginButton.y + loginButton.height +1, loginButton.width, 1);
+    statusView.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:statusView];
     [self createView];
     [self activeButtonAction];
     
@@ -234,6 +241,20 @@ typedef enum{
     [self.view addSubview:self.forgetPWView];
 }
 
+//点击空白处收起键盘
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent             *)event{
+    [self.loginView.phoneNumber resignFirstResponder];
+    [self.loginView.PassWord resignFirstResponder];
+    [self.registerView.phoneNumber resignFirstResponder];
+    [self.registerView.PWTextField resignFirstResponder];
+    [self.registerView.ConfirmPW resignFirstResponder];
+    [self.registerView.securityCode resignFirstResponder];
+    [self.forgetPWView.phoneNumber resignFirstResponder];
+    [self.forgetPWView.createPW resignFirstResponder];
+    [self.forgetPWView.confirmPW resignFirstResponder];
+    [self.forgetPWView.securityCode resignFirstResponder];
+
+}
 
 - (SMLoginView *)loginView{
     if (!_loginView) {

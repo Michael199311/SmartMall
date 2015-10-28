@@ -37,38 +37,41 @@ static long step = 0; //记录时钟动画调用次数
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.scrollView];
-    [self createFakeData];
+    //[self createFakeData];
     
     //获取该商店的数据
     NSDictionary *param = @{
                             @"mcEncode":self.mcEncode
                             };
     NSLog(@"传入的参数为:%@",param);
-    //[CRDataSotreManage setObject:self.mcEncode forKey:@"mcEncode"];
-    //NSDictionary *param = [NSDictionary dictionaryWithObject:@"SH100001" forKey:@"mcEncode"];
-//    [AVCloud callFunctionInBackground:@"cmGetStoreMain" withParameters:param block:^(NSDictionary *dic, NSError *error) {
-//        if (error) {
-//            NSLog(@"获取店铺详情失败:%@",error);
-//        }else{
-//            NSArray *cmdys = dic[@"cmdys"];
-//            for (NSDictionary *dic in cmdys) {
-//                SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
-//                [self.dataSource addObject:commodity];
-//            }
-//            NSArray *array = dic[@"adImg"];
-//            for (NSString *url in array) {
-//                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-//                if (data) {
-//                    UIImage *image = [UIImage imageWithData:data];
-//                    [self.adImgDatasource addObject:image];
-//                }
-//            }
-//            self.collectionView.datasource = self.dataSource;
-//            self.collectionView.controller = self;
-//            [self.collectionView loadView];
-//        }
-//        [self.collectionView reloadData];
-//    }];
+    [AVCloud callFunctionInBackground:@"cmGetStoreMain" withParameters:param block:^(NSDictionary *dic, NSError *error) {
+        if (error) {
+            NSLog(@"获取店铺详情失败:%@",error);
+        }else{
+            NSLog(@"获取的店铺详情信息:%@",dic);
+            NSArray *cmdys = dic[@"cmdys"];
+            for (NSDictionary *dic in cmdys) {
+                SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
+                [self.dataSource addObject:commodity];
+            }
+            NSArray *array = dic[@"adImg"];
+            for (NSString *url in array) {
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+                UIImage *image;
+                if (data) {
+                    image = [UIImage imageWithData:data];
+                }else{
+                    image = [UIImage imageNamed:@"commoditySample"];
+                }
+                [self.adImgDatasource addObject:image];
+            }
+            self.collectionView.datasource = self.dataSource;
+            self.collectionView.controller = self;
+            [self.collectionView loadView];
+        }
+        [self initImageView];
+        [self.collectionView reloadData];
+    }];
     
     
     
@@ -122,14 +125,14 @@ static long step = 0; //记录时钟动画调用次数
     //初始化下一个视图
     _nextImageView = [[UIImageView alloc] init];
     //_nextImageView.image = [UIImage imageNamed:@"commodity1"];
-    _nextImageView.image = self.adImgDatasource[1];
+    _nextImageView.image = self.adImgDatasource[0];
     _nextImageView.frame = CGRectMake(width * 2, 0, width, height);
     _nextImageView.contentMode = UIViewContentModeScaleAspectFill;
     [_scrollView addSubview:_nextImageView];
     //初始化上一个视图
     _previousView = [[UIImageView alloc] init];
     //_previousView.image = [UIImage imageNamed:@"commodity2"];
-    _previousView.image = self.adImgDatasource[2];
+    _previousView.image = self.adImgDatasource[0];
     _previousView.frame = CGRectMake(0, 0, width, height);
     _previousView.contentMode = UIViewContentModeScaleAspectFill;
     [_scrollView addSubview:_previousView];
@@ -249,7 +252,12 @@ static long step = 0; //记录时钟动画调用次数
     return _scrollView;
 }
 
-
+- (NSString *)mcEncode{
+    if (!_mcEncode) {
+        _mcEncode = @"SH100001";
+    }
+    return _mcEncode;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

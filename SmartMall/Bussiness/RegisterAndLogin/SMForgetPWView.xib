@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -15,20 +16,23 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="307"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入注册时填写的手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vdh-oO-DBb" customClass="CRHoshiTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入注册时填写的手机号码" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vdh-oO-DBb" customClass="CRHoshiTextField">
                     <rect key="frame" x="30" y="50" width="260" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="TUg-kr-PMC"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="TUg-kr-PMC"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <outlet property="delegate" destination="sZe-Lr-AiL" id="NOE-XD-lOq"/>
+                    </connections>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="创建密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y95-Ht-x5i" customClass="CRHoshiTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="创建密码" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="y95-Ht-x5i" customClass="CRHoshiTextField">
                     <rect key="frame" x="30" y="110" width="260" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="4R7-jh-7gP"/>
@@ -40,19 +44,25 @@
                             <exclude reference="4R7-jh-7gP"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <outlet property="delegate" destination="sZe-Lr-AiL" id="Aak-Hf-apP"/>
+                    </connections>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入短信验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UCf-fU-0wz" customClass="CRHoshiTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入短信验证码" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UCf-fU-0wz" customClass="CRHoshiTextField">
                     <rect key="frame" x="30" y="230" width="170" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="JC2-XR-gVN"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="JC2-XR-gVN"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <outlet property="delegate" destination="sZe-Lr-AiL" id="b97-Zi-yaq"/>
+                    </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jeg-AJ-n4R">
                     <rect key="frame" x="210" y="230" width="80" height="30"/>
@@ -69,7 +79,7 @@
                         <action selector="getSecurityCode:" destination="sZe-Lr-AiL" eventType="touchUpInside" id="W7H-Kb-dEf"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P2V-TZ-LA3" customClass="CRHoshiTextField">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="P2V-TZ-LA3" customClass="CRHoshiTextField">
                     <rect key="frame" x="30" y="170" width="260" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="vWe-qp-xCM"/>
@@ -81,6 +91,9 @@
                             <exclude reference="vWe-qp-xCM"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <outlet property="delegate" destination="sZe-Lr-AiL" id="gGL-tW-gX6"/>
+                    </connections>
                 </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

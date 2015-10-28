@@ -348,6 +348,7 @@
     cell.backgroundColor=[UIColor clearColor];
     cell.imageView.backgroundColor=UIColorFromRGB(0xF8FCF8);
 //    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:meun.urlName] placeholderImage:[UIImage imageNamed:kImageDefaultName]];
+    cell.imageView.image = [UIImage imageNamed:@"commodity1"];
     return cell;
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "SMRegisterView.h"
-@interface SMRegisterView()
+@interface SMRegisterView()<UITextFieldDelegate>
 
 @end
 
@@ -17,6 +17,30 @@
         self.buttonActionBlock(nil,0);
     }
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == _phoneNumber) {
+        [_phoneNumber becomeFirstResponder];
+    }else if (textField == _PWTextField){
+        [_PWTextField becomeFirstResponder];
+    }else if (textField == _ConfirmPW){
+        [_ConfirmPW becomeFirstResponder];
+    }else if (textField == _securityCode){
+        [_securityCode becomeFirstResponder];
+    }else{
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent             *)event{
+    [self.phoneNumber resignFirstResponder];
+    [self.PWTextField resignFirstResponder];
+    [self.ConfirmPW resignFirstResponder];
+    [self.securityCode resignFirstResponder];
+
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

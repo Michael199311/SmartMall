@@ -10,7 +10,8 @@
 #import "SMModelUser.h"
 #import "SMModelCommodity.h"
 
-@interface SMSubmitOrderVC (){
+@interface SMSubmitOrderVC ()<UITextFieldDelegate>
+{
     NSInteger count;
 }
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -52,6 +53,27 @@
     //[self.submitButton makeCornerRadiusOfRadius:10.0f andBorderWidth:1.0f andBorderColor:[UIColor ]]
     // Do any additional setup after loading the view.
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == _receiver) {
+        [_receiver becomeFirstResponder];
+    }else if (textField == _phoneNumberTextField){
+        [_phoneNumberTextField becomeFirstResponder];
+    }else if (textField == _addressTextField){
+        [_addressTextField becomeFirstResponder];
+    }else{
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent             *)event{
+    [self.receiver resignFirstResponder];
+    [self.phoneNumberTextField resignFirstResponder];
+    [self.addressTextField resignFirstResponder];
+    
+}
+
 - (IBAction)submitOrder:(id)sender {
     if (self.receiver.text == nil || self.phoneNumberTextField.text == nil || self.addressTextField.text == nil) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"信息不完整" message:@"请检查收货信息是否完整" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

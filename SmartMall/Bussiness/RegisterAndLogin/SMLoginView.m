@@ -7,7 +7,7 @@
 //
 
 #import "SMLoginView.h"
-@interface SMLoginView()
+@interface SMLoginView()<UITextFieldDelegate>
 
 @end
 
@@ -18,6 +18,21 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == _phoneNumber) {
+        [_phoneNumber becomeFirstResponder];
+    }else if (textField == _PassWord){
+        [_PassWord becomeFirstResponder];
+    }else{
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent             *)event{
+    [self.phoneNumber resignFirstResponder];
+    [self.PassWord resignFirstResponder];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
