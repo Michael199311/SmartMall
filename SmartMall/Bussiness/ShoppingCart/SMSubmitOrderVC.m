@@ -9,6 +9,8 @@
 #import "SMSubmitOrderVC.h"
 #import "SMModelUser.h"
 #import "SMModelCommodity.h"
+#import "SMMerchantDetailVC.h"
+#import "SMMerchant.h"
 
 @interface SMSubmitOrderVC ()<UITextFieldDelegate>
 {
@@ -106,6 +108,12 @@
             }else{
                 NSLog(@"提交订单成功:%@",object);
                 [SVProgressHUD showSuccessWithStatus:@"提交订单成功"];
+                UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+                SMMerchantDetailVC *MerchantDetailVC = homeController.viewControllers[0];
+                SMMerchant *merchant = [SMModelUser currentUser].merchants[0];
+                MerchantDetailVC.mcEncode = merchant.mcEncode;
+                homeController.selectedViewController = MerchantDetailVC;
+                [self.navigationController pushViewController:homeController animated:YES];
             }
         }];
     }

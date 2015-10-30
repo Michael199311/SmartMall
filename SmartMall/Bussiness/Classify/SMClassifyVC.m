@@ -106,11 +106,69 @@
      
      :returns: <#return value description#>
      */
+    __block NSString *A  = @"A";
+    __block NSString *B = @"00";
+    __block NSString *C = @"00";
     MultilevelMenu * view=[[MultilevelMenu alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) WithData:lis withSelectIndex:^(NSInteger left, NSInteger right,rightMeun* info) {
         SMClassifyDetailVC *classifyDetailVC = (SMClassifyDetailVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ClassifyDetailVC" andStroyBoardNameString:@"Main"];
         
-        //classifyDetailVC.classId = [NSString stringWithFormat:@"%lX%2ld%2ld",left+65,(long)info.meunNumber,(long)right];
-        classifyDetailVC.classId = @"A0001";
+        if (left == 0) {
+            A = @"A";
+        }else if (left == 1) {
+            A = @"B";
+        }else if (left == 2) {
+            A = @"C";
+        }
+        else if (left == 3) {
+            A = @"D";
+        }
+        else if (left == 4) {
+            A = @"E";
+        }
+        else if (left == 5) {
+            A = @"F";
+        }
+        else if (left == 6) {
+            A = @"G";
+        }
+        else if (left == 7) {
+            A = @"H";
+        }
+        else if (left == 8) {
+            A = @"I";
+        }
+        else if (left == 9) {
+            A = @"J";
+        }
+        else if (left == 10) {
+            A = @"K";
+        }
+        else if (left == 11) {
+            A = @"L";
+        }
+        else if (left == 12) {
+            A = @"M";
+        }
+        else if (left == 13) {
+            A = @"N";
+        }
+        
+        if (info.meunNumber/10 == 0) {
+            B = [NSString stringWithFormat:@"0%ld",(long)info.meunNumber];
+        }else{
+            B = [NSString stringWithFormat:@"%ld",(long)info.meunNumber];
+        }
+        
+        if (right/10 == 0) {
+            C = [NSString stringWithFormat:@"0%ld",(long)right];
+        }else{
+            C = [NSString stringWithFormat:@"%ld",(long)right];
+        }
+
+        
+        classifyDetailVC.classId = [NSString stringWithFormat:@"%@%@%@",A,B,C];
+        //classifyDetailVC.classId = @"A0001";
+        NSLog(@"要进入的分类栏的分类id：%@",classifyDetailVC.classId);
         classifyDetailVC.buttonTitles = self.level3[left][info.meunNumber];
         classifyDetailVC.mcEncode = @"SH100001";
         //[self presentViewController:classifyDetailVC animated:YES completion:nil];

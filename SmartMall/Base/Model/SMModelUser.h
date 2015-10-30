@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSDictionary *defaultConsigneeInfo;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phoneNumber;
+@property (nonatomic, strong) NSArray *merchants;
 + (SMModelUser *)currentUser;
 + (void)saveUserToLocalWithUser:(SMModelUser *)user;
 @end

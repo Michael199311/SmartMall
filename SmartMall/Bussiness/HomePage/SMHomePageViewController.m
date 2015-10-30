@@ -12,6 +12,7 @@
 #import "SMMarketListCell.h"
 #import "SMMerchantDetailVC.h"
 #import "SMHomePageView.h"
+#import "SMModelUser.h"
 
 @interface SMHomePageViewController ()<CLLocationManagerDelegate,UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *LocationLabel;
@@ -62,6 +63,7 @@
                 SMMerchant *merchant = [SMMerchant objectWithKeyValues:dic];
                 [self.dataSource addObject:merchant];
             }
+            [SMModelUser currentUser].merchants = self.dataSource;
             [self.tableView reloadData];
         }
     }];

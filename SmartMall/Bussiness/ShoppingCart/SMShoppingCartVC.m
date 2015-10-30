@@ -12,6 +12,7 @@
 #import "SMShoppingCartHeader.h"
 #import "UIView+CRAdditions.h"
 #import "SMModelUser.h"
+#import "SMMerchant.h"
 #import "SMSubmitOrderVC.h"
 @interface SMShoppingCartVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -91,8 +92,9 @@
             //选中该section的所有商品
         }
     };
-    header.introduction.text = @"红星超市";
-    header.minCost.text = @"30起送";
+    SMMerchant *merchant = [SMModelUser currentUser].merchants[section];
+    header.introduction.text = merchant._name;
+    header.minCost.text = [NSString stringWithFormat:@"%@起送",merchant.miniCost];
     return header;
 }
 
