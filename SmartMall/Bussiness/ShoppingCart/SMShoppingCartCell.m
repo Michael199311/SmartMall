@@ -11,7 +11,7 @@
 @implementation SMShoppingCartCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -21,14 +21,20 @@
 }
 - (IBAction)choose:(UIButton *)sender {
     //改变按钮的背景颜色为红色
-    
+    if (self.buttonActionBlock) {
+        self.buttonActionBlock(nil, 0);
+    }
 }
 
 - (IBAction)reduce:(UIButton *)sender {
-    self.amount --;
+    if (self.buttonActionBlock) {
+        self.buttonActionBlock(nil, 1);
+    }
 }
 - (IBAction)add:(UIButton *)sender {
-    self.amount ++;
+    if (self.buttonActionBlock) {
+        self.buttonActionBlock(nil, 2);
+    }
 }
 
 @end

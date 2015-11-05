@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,6 +13,7 @@
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vz4-GO-SCr" customClass="CRHoshiTextField">
                     <rect key="frame" x="27" y="74" width="266" height="30"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="UgV-Xa-ByR"/>
                     </constraints>
@@ -31,6 +32,7 @@
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="创建密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fuT-3v-5MZ" customClass="CRHoshiTextField">
                     <rect key="frame" x="27" y="134" width="266" height="30"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="W1E-SQ-drI"/>
                     </constraints>
@@ -42,6 +44,7 @@
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yb6-gD-5Ni" customClass="CRHoshiTextField">
                     <rect key="frame" x="27" y="194" width="266" height="30"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="266" id="sRh-lP-yvc"/>
                     </constraints>
@@ -53,6 +56,7 @@
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一秒完成注册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0c-id-3sg">
                     <rect key="frame" x="109" y="26" width="102" height="21"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="48k-w9-Eb1"/>
                         <constraint firstAttribute="width" constant="102" id="zbR-HV-yEA"/>
@@ -63,6 +67,7 @@
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-cJ-jD2" customClass="CRHoshiTextField">
                     <rect key="frame" x="27" y="254" width="150" height="30"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="150" id="Qso-E7-WBy"/>
                     </constraints>
@@ -81,12 +86,14 @@
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9D3-H2-WcF">
                     <rect key="frame" x="218" y="254" width="75" height="30"/>
+                    <animations/>
                     <state key="normal" title="验证验证码"/>
                     <connections>
                         <action selector="checkSecurityCode:" destination="6fL-Ew-xcq" eventType="touchUpInside" id="sDf-g2-QIx"/>
                     </connections>
                 </button>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="9D3-H2-WcF" firstAttribute="trailing" secondItem="yb6-gD-5Ni" secondAttribute="trailing" id="1Uo-3g-wNi"/>

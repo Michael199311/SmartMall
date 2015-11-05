@@ -12,6 +12,11 @@
 @end
 
 @implementation SMRegisterView
+
+- (void)didMoveToSuperview{
+    //[self.checkButton makeCornerRadiusOfRadius:1.0 andBorderWidth:10.0 andBorderColor:[UIColor whiteColor]];
+}
+
 - (IBAction)checkSecurityCode:(UIButton *)sender {
     if (self.buttonActionBlock) {
         self.buttonActionBlock(nil,0);

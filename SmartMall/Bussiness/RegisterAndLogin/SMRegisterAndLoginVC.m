@@ -89,6 +89,7 @@ typedef enum{
     [AVUser logInWithUsernameInBackground:username password:password block:^(AVUser *user, NSError *error) {
         if (user != nil) {
             NSLog(@"登录成功");
+            [SVProgressHUD showSuccessWithStatus:@"登录成功"];
             //保存用户信息
             [AVUser changeCurrentUser:user save:YES];
             
@@ -96,34 +97,31 @@ typedef enum{
             SMUser.name = username;
             SMUser.phoneNumber = username;
             //[SMModelUser saveUserToLocalWithUser:SMUser];
-            //进入首页
-            SMHomePageViewController *homePageVC = (SMHomePageViewController  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
-            [self.navigationController pushViewController:homePageVC animated:YES];
-//            UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
-//            homeController.selectedViewController = homeController.viewControllers[0];
-//            [self.navigationController pushViewController:homeController animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //进入首页
+                SMHomePageViewController *homePageVC = (SMHomePageViewController  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
+                [self.navigationController pushViewController:homePageVC animated:YES];
+            });
             
-            
-//            SMMerchantDetailVC *merchentDetailVC = (SMMerchantDetailVC  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"MerchantDetailVC" andStroyBoardNameString:@"Main"];
-//            merchentDetailVC.mcEncode = @"SH100001";
-//            //[self.navigationController pushViewController:merchentDetailVC animated:YES];
-//            [self presentViewController:merchentDetailVC animated:YES completion:nil];
         }else{
             NSLog(@"登录失败");
+            [SVProgressHUD showErrorWithStatus:@"登录失败！请检查您的用户名和密码是否输入正确"];
         }
         
     }];
 }
 
 - (void)registerNewUser{
+    if (![self.registerView.PWTextField.text isEqualToString:self.registerView.ConfirmPW.text]) {
+        [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
+        return;
+    }
     AVUser *user = [AVUser user];
     user.username = self.registerView.phoneNumber.text;
     user.password = self.registerView.PWTextField.text;
     user.mobilePhoneNumber = self.registerView.phoneNumber.text;
     [user setObject:user.username forKey:@"phone"];
-//    NSError *error = nil;
-//    [user signUp:&error];
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"注册成功");
             [SVProgressHUD showSuccessWithStatus:@"注册成功，请在5分钟内完成验证"];
@@ -131,15 +129,26 @@ typedef enum{
             self.registerView.checkButton.hidden = NO;
         }else{
             NSLog(@"注册失败:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"注册失败"];
         }
     }];
 }
 
 - (void)resetPassword{
+    if (![self.forgetPWView.createPW.text isEqualToString:self.forgetPWView.confirmPW.text]) {
+        [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
+    }
+    __weak typeof(self) weakSelf = self;
     [AVUser resetPasswordWithSmsCode:self.forgetPWView.securityCode.text newPassword:self.forgetPWView.createPW.text block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"重置密码成功");
+            [SVProgressHUD showSuccessWithStatus:@"重置密码成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                WelcomeType = SMWelcomePageTypeLogin;
+                [weakSelf createLoginView];
+            });
         }else{
+            [SVProgressHUD showErrorWithStatus:@"重置密码失败"];
             NSLog(@"重置密码失败：%@",error);
         }
     }];
@@ -156,10 +165,14 @@ typedef enum{
                     if (succeeded) {
                         NSLog(@"验证短信验证码成功");
                         [SVProgressHUD showSuccessWithStatus:@"验证短信验证码成功"];
-                        WelcomeType = SMWelcomePageTypeLogin;
-                        [weakSelf createLoginView];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            WelcomeType = SMWelcomePageTypeLogin;
+                            [weakSelf createLoginView];
+                        });
+                        
                     }else{
                         NSLog(@"验证短信验证码失败");
+                        [SVProgressHUD showErrorWithStatus:@"验证短信验证码失败"];
                     }
                 }];
             }
@@ -174,7 +187,6 @@ typedef enum{
             case 0:
                 //忘记密码
                 WelcomeType = SMWelcomePageTypeForgetPW;
-                //[weakSelf getSecurityCode];
                 [weakSelf createForgetPWView];
                 break;
                 
@@ -182,7 +194,7 @@ typedef enum{
                 break;
         }
     };
-
+    
     self.forgetPWView.buttonActionBlock = ^(NSDictionary *info, NSInteger type){
         switch (type) {
             case 0:
@@ -201,6 +213,7 @@ typedef enum{
             NSLog(@"获取短信验证码成功");
         } else {
             NSLog(@"获取短信验证码失败:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"获取短信验证码失败"];
         }
     }];
 }
@@ -222,12 +235,14 @@ typedef enum{
 }
 
 - (void)createLoginView{
+    [finishButton setTitle:@"登录" forState:UIControlStateNormal];
     [self.registerView removeFromSuperview];
     [self.forgetPWView removeFromSuperview];
     [self.view addSubview:self.loginView];
 }
 
 - (void)createRegisterView{
+    [finishButton setTitle:@"完成" forState:UIControlStateNormal];
     self.registerView.securityCode.hidden = YES;
     self.registerView.checkButton.hidden = YES;
     [self.loginView removeFromSuperview];
@@ -236,6 +251,7 @@ typedef enum{
 }
 
 - (void)createForgetPWView{
+    [finishButton setTitle:@"完成" forState:UIControlStateNormal];
     [self.registerView removeFromSuperview];
     [self.loginView removeFromSuperview];
     [self.view addSubview:self.forgetPWView];
@@ -253,7 +269,7 @@ typedef enum{
     [self.forgetPWView.createPW resignFirstResponder];
     [self.forgetPWView.confirmPW resignFirstResponder];
     [self.forgetPWView.securityCode resignFirstResponder];
-
+    
 }
 
 - (SMLoginView *)loginView{
@@ -280,13 +296,13 @@ typedef enum{
     return _forgetPWView;
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

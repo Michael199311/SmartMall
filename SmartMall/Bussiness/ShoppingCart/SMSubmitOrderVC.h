@@ -10,4 +10,6 @@
 
 @interface SMSubmitOrderVC : UIViewController
 
+@property (strong, nonatomic) NSMutableArray *imageArr;
+
 @end

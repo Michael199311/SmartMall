@@ -64,7 +64,7 @@
     }
     //被选中的按钮的背景颜色和字体颜色不一样
     UIButton *button = self.buttonArray[0];
-         button.backgroundColor = [UIColor whiteColor];
+    button.backgroundColor = [UIColor whiteColor];
     [button setTintColor:[UIColor greenColor]];
 }
 
@@ -81,15 +81,26 @@
                             @"limit":@0,
                             @"jump":@0
                             };
+    [SVProgressHUD showWithStatus:@"获取商品列表中"];
     [AVCloud callFunctionInBackground:@"cmGetCmdyList" withParameters:param block:^(NSArray *arr, NSError *error) {
         if (error) {
             NSLog(@"获取商品列表失败:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"获取商品列表失败"];
         }else{
-        for (NSDictionary *dic in arr) {
-            SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
-            [self.dataSource addObject:commodity];
-            [self.collectionView reloadData];
-        }
+            NSLog(@"获取商品列表成功:%@",arr);
+            if (arr.count == 0) {
+                [SVProgressHUD showErrorWithStatus:@"该分类暂时还没有商品"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+                [SVProgressHUD dismiss];
+                for (NSDictionary *dic in arr) {
+                    SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
+                    [self.dataSource addObject:commodity];
+                }
+                [self.collectionView reloadData];
+            }
         }
     }];
 }
@@ -121,7 +132,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(106 , 131);
+    return CGSizeMake(119 , 222);
 }
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     return UIEdgeInsetsMake(0, 0, 0, 0);
@@ -155,13 +166,13 @@
     return _dataSource;
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

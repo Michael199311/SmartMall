@@ -32,10 +32,14 @@
                             @"mcEncode":self.mcEncode,
                             @"cmdyEncode":self.cmdyEncode
                             };
+    [SVProgressHUD showWithStatus:@"获取商品详情中"];
     [AVCloud callFunctionInBackground:@"GetCmdyInfo" withParameters:param block:^(NSDictionary *dic, NSError *error) {
         if (error) {
             NSLog(@"获取商品详情失败");
+            [SVProgressHUD showErrorWithStatus:@"获取商品详情失败"];
         }else{
+            NSLog(@"获取商品详情成功:%@",dic);
+            [SVProgressHUD dismiss];
             self.commodity = [SMModelCommodity objectWithKeyValues:dic];
             [self updateView];
         }

@@ -12,6 +12,7 @@
 #import "SMGoodsCell.h"
 #import "CRDataSotreManage.h"
 #import "SMMerchantCollectionView.h"
+#import "SDCycleScrollView.h"
 
 #define kCount 6  //图片总张数
 
@@ -36,7 +37,7 @@ static long step = 0; //记录时钟动画调用次数
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
-    [self.view addSubview:self.scrollView];
+    //[self.view addSubview:self.scrollView];
     //[self createFakeData];
     
     //获取该商店的数据
@@ -44,11 +45,14 @@ static long step = 0; //记录时钟动画调用次数
                             @"mcEncode":self.mcEncode
                             };
     NSLog(@"传入的参数为:%@",param);
+    [SVProgressHUD showWithStatus:@"获取店铺详情中"];
     [AVCloud callFunctionInBackground:@"cmGetStoreMain" withParameters:param block:^(NSDictionary *dic, NSError *error) {
         if (error) {
             NSLog(@"获取店铺详情失败:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"获取店铺详情失败"];
         }else{
             NSLog(@"获取的店铺详情信息:%@",dic);
+            [SVProgressHUD dismiss];
             NSArray *cmdys = dic[@"cmdys"];
             for (NSDictionary *dic in cmdys) {
                 SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
@@ -67,9 +71,17 @@ static long step = 0; //记录时钟动画调用次数
             }
             self.collectionView.datasource = self.dataSource;
             self.collectionView.controller = self;
+            if (self.dataSource.count == 0) {
+                [SVProgressHUD showErrorWithStatus:@"该店铺暂时没有商品"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
             [self.collectionView loadView];
+            }
         }
-        [self initImageView];
+        //[self initImageView];
+        NSArray *arr = [NSArray arrayWithObjects:self.adImgDatasource[0],self.adImgDatasource[0],self.adImgDatasource[0], nil];
+        SDCycleScrollView *scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 66, self.view.width, 250) imagesGroup:arr];
+        [self.view addSubview:scrollView];
         [self.collectionView reloadData];
     }];
     
@@ -217,8 +229,9 @@ static long step = 0; //记录时钟动画调用次数
 
 - (SMMerchantCollectionView *)collectionView{
     if (!_collectionView) {
+        CGFloat y = self.scrollView.y + self.scrollView.height;
         UICollectionViewFlowLayout *layout= [[UICollectionViewFlowLayout alloc]init];
-        _collectionView = [[SMMerchantCollectionView alloc] initWithFrame:CGRectMake(0, 316, self.view.width, self.view.height - 216) collectionViewLayout:layout];
+        _collectionView = [[SMMerchantCollectionView alloc] initWithFrame:CGRectMake(0, y, self.view.width, self.view.height - y) collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor clearColor];
     }
     return _collectionView;

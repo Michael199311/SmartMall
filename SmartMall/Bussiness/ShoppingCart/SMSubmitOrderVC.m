@@ -48,7 +48,7 @@
     //        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.url]];
     //        if (data) {
     //            UIImage *image = [UIImage imageWithData:data];
-    //            [self.imagesArray addObject:image];
+    //            [self. addObject:image];
     //        }
     //    }
     //    self.amount.text = [NSString stringWithFormat:@"共%lu件",(unsigned long)user.commoditysArray.count];
@@ -76,11 +76,24 @@
     
 }
 
-- (IBAction)submitOrder:(id)sender {
-    if (self.receiver.text == nil || self.phoneNumberTextField.text == nil || self.addressTextField.text == nil) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"信息不完整" message:@"请检查收货信息是否完整" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+- (BOOL)checkTextField{
+    NSLog(@"收货人:%@,手机号码:%@,收货地址:%@",self.receiver.text,self.phoneNumberTextField.text,self.addressTextField.text);
+    if (![NSString isNotEmptyString:self.receiver.text]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入收货人信息"];
+        return NO;
+    }else if (![NSString isNotEmptyString:self.phoneNumberTextField.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入收货人手机号码"];
+        return NO;
+    }else if (![NSString isNotEmptyString:self.addressTextField.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入收货地址信息"];
+        return NO;
     }else{
+        return YES;
+    }
+}
+
+- (IBAction)submitOrder:(id)sender {
+    if ([self checkTextField]) {
         //提交订单
         NSMutableArray *cmdys = [[NSMutableArray alloc] init];
         SMModelUser *user = [SMModelUser currentUser];
@@ -92,7 +105,6 @@
                                   };
             [cmdys addObject:dic];
         }
-        //NSArray *cmdys = [NSArray arrayWithObjects:cmdy, nil];
         NSDictionary *dic = @{
                               @"mcEncode":@"SH100001",
                               @"consignee":self.receiver.text,
@@ -102,9 +114,11 @@
                               @"cmdys":cmdys
                               };
         NSLog(@"传入的参数:%@",dic);
+        [SVProgressHUD showWithStatus:@"提交订单中"];
         [AVCloud callFunctionInBackground:@"cmPlaceAnOrder" withParameters:dic block:^(id object, NSError *error) {
             if (error) {
                 NSLog(@"提交订单失败:%@",error);
+                [SVProgressHUD showErrorWithStatus:@"订单提交失败"];
             }else{
                 NSLog(@"提交订单成功:%@",object);
                 [SVProgressHUD showSuccessWithStatus:@"提交订单成功"];
@@ -113,11 +127,23 @@
                 SMMerchant *merchant = [SMModelUser currentUser].merchants[0];
                 MerchantDetailVC.mcEncode = merchant.mcEncode;
                 homeController.selectedViewController = MerchantDetailVC;
-                [self.navigationController pushViewController:homeController animated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController pushViewController:homeController animated:YES];
+                });
+                [user.commoditysArray removeAllObjects];
             }
         }];
-    }
 }
+    }
+
+- (NSMutableArray *)imageArr{
+    if (!_imageArr) {
+        _imageArr = [[NSMutableArray alloc] init];
+    }
+    return _imageArr;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

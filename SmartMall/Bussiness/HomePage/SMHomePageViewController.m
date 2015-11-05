@@ -53,11 +53,14 @@
                             //@"center":@"121.597575,31.265437"
                             //};
     NSDictionary *param = [NSDictionary dictionaryWithObject:@"121.597575,31.265437" forKey:@"center"];
+    [SVProgressHUD showWithStatus:@"获取附近店铺信息中"];
     [AVCloud callFunctionInBackground:@"cmGetAroundStoreList" withParameters:param block:^(id object, NSError *error) {
         if (error) {
             NSLog(@"获取附近店铺信息失败:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"获取附近店铺信息失败"];
         }else{
             NSLog(@"获取附近店铺信息成功:%@",object);
+            [SVProgressHUD dismiss];
             NSArray *array = (NSArray *)object;
             for (NSDictionary *dic in array) {
                 SMMerchant *merchant = [SMMerchant objectWithKeyValues:dic];
