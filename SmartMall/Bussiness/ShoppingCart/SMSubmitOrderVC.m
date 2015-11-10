@@ -37,7 +37,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"订单确认";
     count = [SMModelUser currentUser].commoditysArray.count;
+//    for (NSArray *cmdyArrs in [SMModelUser currentUser].commoditysArray) {
+//        count += cmdyArrs.count;
+//    }
     self.amount.text = [NSString stringWithFormat:@"共%lu件",(unsigned long)count];
     //SMModelUser *user = (SMModelUser *)[SMModelUser currentUser];
     //self.name.text = user.defaultConsigneeInfo[@"name"];
@@ -97,8 +101,10 @@
         //提交订单
         NSMutableArray *cmdys = [[NSMutableArray alloc] init];
         SMModelUser *user = [SMModelUser currentUser];
-        NSArray *array = user.commoditysArray;
-        for (SMModelCommodity *commodity in array) {
+        NSString *name = [SMModelUser localUser].name;
+       // NSArray *array = user.commoditysArray;
+        for (SMModelCommodity *commodity in user.commoditysArray) {
+            //SMModelCommodity *commodity = commoditys[0];
             NSDictionary *dic = @{
                                   @"cmdyEncode":commodity.cmdyEncode,
                                   @"count":@1
@@ -110,12 +116,15 @@
                               @"consignee":self.receiver.text,
                               @"orderAddress":self.addressTextField.text,
                               @"cPhone":self.phoneNumberTextField.text,
-                              @"cmName":user.name,
+                              @"cmName":name,
                               @"cmdys":cmdys
                               };
         NSLog(@"传入的参数:%@",dic);
         [SVProgressHUD showWithStatus:@"提交订单中"];
+        UIButton *button = (UIButton *)sender;
+        button.enabled = NO;
         [AVCloud callFunctionInBackground:@"cmPlaceAnOrder" withParameters:dic block:^(id object, NSError *error) {
+            button.enabled = YES;
             if (error) {
                 NSLog(@"提交订单失败:%@",error);
                 [SVProgressHUD showErrorWithStatus:@"订单提交失败"];
@@ -123,14 +132,15 @@
                 NSLog(@"提交订单成功:%@",object);
                 [SVProgressHUD showSuccessWithStatus:@"提交订单成功"];
                 UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
-                SMMerchantDetailVC *MerchantDetailVC = homeController.viewControllers[0];
-                SMMerchant *merchant = [SMModelUser currentUser].merchants[0];
-                MerchantDetailVC.mcEncode = merchant.mcEncode;
-                homeController.selectedViewController = MerchantDetailVC;
+//                SMMerchantDetailVC *MerchantDetailVC = homeController.viewControllers[0];
+//                SMMerchant *merchant = [SMModelUser currentUser].merchants[0];
+//                MerchantDetailVC.mcEncode = merchant.mcEncode;
+                homeController.selectedViewController = homeController.viewControllers[0];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController pushViewController:homeController animated:YES];
                 });
                 [user.commoditysArray removeAllObjects];
+
             }
         }];
 }

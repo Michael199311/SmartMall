@@ -27,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"商品分类";
+
     NSMutableArray * lis=[NSMutableArray arrayWithCapacity:0];
     
     NSDictionary *dic1 = [self turnJsonToDic:@"level1"];

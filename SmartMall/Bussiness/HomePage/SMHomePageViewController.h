@@ -8,6 +8,6 @@
 
 #import "CRBaseViewController.h"
 
-@interface SMHomePageViewController : UIViewController
+@interface SMHomePageViewController : CRBaseViewController
 
 @end

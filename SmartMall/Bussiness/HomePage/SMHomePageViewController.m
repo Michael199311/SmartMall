@@ -13,8 +13,9 @@
 #import "SMMerchantDetailVC.h"
 #import "SMHomePageView.h"
 #import "SMModelUser.h"
+#import "SMRegisterAndLoginVC.h"
 
-@interface SMHomePageViewController ()<CLLocationManagerDelegate,UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface SMHomePageViewController ()<CLLocationManagerDelegate,UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *LocationLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -35,6 +36,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationLeftButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationLeftButton setImage:[UIImage imageNamed:@"user-male-black-silhouette"] forState:UIControlStateNormal];
+    self.title = @"商户列表";
+    //重新登录一次，让云端有用户信息
+    [self reLogin];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.bottom.mas_equalTo(self.view);
         make.top.mas_equalTo(@80);
@@ -48,28 +54,7 @@
         [alert show];
     }
     [self.locManager startUpdatingLocation];
-    //NSDictionary *param = @{
-                            //@"center":[NSString stringWithFormat:@"%@,%@",self.currentLatitude,self.currentLongitude]
-                            //@"center":@"121.597575,31.265437"
-                            //};
-    NSDictionary *param = [NSDictionary dictionaryWithObject:@"121.597575,31.265437" forKey:@"center"];
-    [SVProgressHUD showWithStatus:@"获取附近店铺信息中"];
-    [AVCloud callFunctionInBackground:@"cmGetAroundStoreList" withParameters:param block:^(id object, NSError *error) {
-        if (error) {
-            NSLog(@"获取附近店铺信息失败:%@",error);
-            [SVProgressHUD showErrorWithStatus:@"获取附近店铺信息失败"];
-        }else{
-            NSLog(@"获取附近店铺信息成功:%@",object);
-            [SVProgressHUD dismiss];
-            NSArray *array = (NSArray *)object;
-            for (NSDictionary *dic in array) {
-                SMMerchant *merchant = [SMMerchant objectWithKeyValues:dic];
-                [self.dataSource addObject:merchant];
-            }
-            [SMModelUser currentUser].merchants = self.dataSource;
-            [self.tableView reloadData];
-        }
-    }];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -102,13 +87,68 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SMMerchant *merchant = self.dataSource[indexPath.row];
-    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
-    SMMerchantDetailVC *MerchantDetailVC = homeController.viewControllers[0];
+    SMMerchantDetailVC *MerchantDetailVC = (SMMerchantDetailVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"MerchantDetailVC" andStroyBoardNameString:@"Main"];
+//    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+//    SMMerchantDetailVC *MerchantDetailVC = homeController.viewControllers[0];
     MerchantDetailVC.mcEncode = merchant.mcEncode;
-    homeController.selectedViewController = MerchantDetailVC;
-    [self.navigationController pushViewController:homeController animated:YES];
+    //homeController.selectedViewController = MerchantDetailVC;
+    [self.navigationController pushViewController:MerchantDetailVC animated:YES];
     //[self presentViewController:homePageVC animated:YES completion:nil];
     //[self.navigationController pushViewController:homeController animated:YES];
+}
+
+
+- (void)reLogin{
+    SMModelUser *user = [SMModelUser localUser];
+    [AVUser logInWithUsernameInBackground:user.name password:user.password block:^(AVUser *user, NSError *error) {
+        if (user) {
+            [self getMerchantInfo];
+        }else{
+            NSLog(@"登录失败");
+            [SVProgressHUD showErrorWithStatus:@"登录失败！"];
+        }
+    }];
+}
+
+- (void)getMerchantInfo{
+    //NSDictionary *param = @{
+    //@"center":[NSString stringWithFormat:@"%@,%@",self.currentLatitude,self.currentLongitude]
+    //@"center":@"121.597575,31.265437"
+    //};
+    NSDictionary *param = [NSDictionary dictionaryWithObject:@"121.597575,31.265437" forKey:@"center"];
+    [SVProgressHUD showWithStatus:@"获取附近店铺信息中"];
+    [AVCloud callFunctionInBackground:@"cmGetAroundStoreList" withParameters:param block:^(id object, NSError *error) {
+        if (error) {
+            NSLog(@"获取附近店铺信息失败:%@",error);
+            [SVProgressHUD showErrorWithStatus:@"获取附近店铺信息失败"];
+        }else{
+            NSLog(@"获取附近店铺信息成功:%@",object);
+            [SVProgressHUD dismiss];
+            NSArray *array = (NSArray *)object;
+            for (NSDictionary *dic in array) {
+                SMMerchant *merchant = [SMMerchant objectWithKeyValues:dic];
+                [self.dataSource addObject:merchant];
+            }
+            SMModelUser *currentUser = [SMModelUser currentUser];
+            currentUser.merchants = self.dataSource;
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)logout{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登出" message:@"确认登出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [SMModelUser clearUser];
+        SMRegisterAndLoginVC *loginController = (SMRegisterAndLoginVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"RegisterAndLogin" andStroyBoardNameString:@"Main"];
+        [loginController.view bringSubviewToFront:loginController.loginView];
+        [self presentViewController:loginController animated:YES completion:nil];
+    }
 }
 
 - (NSMutableArray *)dataSource{
@@ -126,7 +166,7 @@
     CLLocationCoordinate2D cool = self.checkinLocation.coordinate;
     self.currentLatitude  = [NSString stringWithFormat:@"%.6f",cool.latitude];
     self.currentLongitude = [NSString stringWithFormat:@"%.6f",cool.longitude];
-    NSLog(@"%@,%@",self.currentLatitude,self.currentLongitude);
+    NSLog(@"获取到的定位信息:%@,%@",self.currentLatitude,self.currentLongitude);
 }
 
 

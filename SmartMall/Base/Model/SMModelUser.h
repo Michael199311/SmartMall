@@ -14,8 +14,12 @@
 @property (nonatomic, strong) NSMutableArray *commoditysArray;
 @property (nonatomic, strong) NSDictionary *defaultConsigneeInfo;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSArray *merchants;
 + (SMModelUser *)currentUser;
++ (SMModelUser *)localUser;
 + (void)saveUserToLocalWithUser:(SMModelUser *)user;
++ (void)clearUser;
+
 @end

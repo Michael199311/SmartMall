@@ -39,7 +39,8 @@ static long step = 0; //记录时钟动画调用次数
     [self.view addSubview:self.collectionView];
     //[self.view addSubview:self.scrollView];
     //[self createFakeData];
-    
+    self.title = @"商户详情";
+
     //获取该商店的数据
     NSDictionary *param = @{
                             @"mcEncode":self.mcEncode

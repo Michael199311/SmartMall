@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="6fL-Ew-xcq" customClass="SMRegisterView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="307"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vz4-GO-SCr" customClass="CRHoshiTextField">
@@ -65,43 +65,12 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-cJ-jD2" customClass="CRHoshiTextField">
-                    <rect key="frame" x="27" y="254" width="150" height="30"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="150" id="Qso-E7-WBy"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
-                            <integer key="value" value="6"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="pattern" value="^\d{6}"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="errorMessage" value="请输入正确格式的验证码"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="delegate" destination="6fL-Ew-xcq" id="1e1-F6-Am6"/>
-                    </connections>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9D3-H2-WcF">
-                    <rect key="frame" x="218" y="254" width="75" height="30"/>
-                    <animations/>
-                    <state key="normal" title="验证验证码"/>
-                    <connections>
-                        <action selector="checkSecurityCode:" destination="6fL-Ew-xcq" eventType="touchUpInside" id="sDf-g2-QIx"/>
-                    </connections>
-                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="9D3-H2-WcF" firstAttribute="trailing" secondItem="yb6-gD-5Ni" secondAttribute="trailing" id="1Uo-3g-wNi"/>
-                <constraint firstItem="hTa-cJ-jD2" firstAttribute="top" secondItem="yb6-gD-5Ni" secondAttribute="bottom" constant="30" id="49Z-yb-hya"/>
                 <constraint firstItem="Vz4-GO-SCr" firstAttribute="top" secondItem="6fL-Ew-xcq" secondAttribute="top" constant="74" id="8Lv-j4-WXx"/>
-                <constraint firstItem="hTa-cJ-jD2" firstAttribute="leading" secondItem="yb6-gD-5Ni" secondAttribute="leading" id="GzJ-bh-zbM"/>
                 <constraint firstItem="e0c-id-3sg" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="JMf-Bf-zgs"/>
-                <constraint firstItem="9D3-H2-WcF" firstAttribute="centerY" secondItem="hTa-cJ-jD2" secondAttribute="centerY" id="Myb-eo-Myd"/>
                 <constraint firstItem="Vz4-GO-SCr" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="QOR-bk-xCS"/>
                 <constraint firstItem="yb6-gD-5Ni" firstAttribute="centerX" secondItem="6fL-Ew-xcq" secondAttribute="centerX" id="Tx2-Hf-YfR"/>
                 <constraint firstItem="yb6-gD-5Ni" firstAttribute="top" secondItem="fuT-3v-5MZ" secondAttribute="bottom" constant="30" id="eOc-hc-Kv3"/>
@@ -113,11 +82,9 @@
             <connections>
                 <outlet property="ConfirmPW" destination="yb6-gD-5Ni" id="9ag-vC-2vo"/>
                 <outlet property="PWTextField" destination="fuT-3v-5MZ" id="Z7D-0B-lgl"/>
-                <outlet property="checkButton" destination="9D3-H2-WcF" id="KV9-iu-Mue"/>
                 <outlet property="phoneNumber" destination="Vz4-GO-SCr" id="ThY-d7-WS9"/>
-                <outlet property="securityCode" destination="hTa-cJ-jD2" id="M2F-S6-Krf"/>
             </connections>
-            <point key="canvasLocation" x="270" y="223.5"/>
+            <point key="canvasLocation" x="270" y="195.5"/>
         </view>
     </objects>
 </document>

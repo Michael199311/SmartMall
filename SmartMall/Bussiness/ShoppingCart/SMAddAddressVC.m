@@ -21,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"添加送货地址";
+
     // Do any additional setup after loading the view.
 }
 - (IBAction)setAsDefaultAddress:(UISwitch *)sender {

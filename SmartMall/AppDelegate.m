@@ -12,6 +12,7 @@
 #import "UIStoryboard+CRInstantiate.h"
 #import "SMHomePageViewController.h"
 #import "SMRegisterAndLoginVC.h"
+#import "SMModelUser.h"
 
 @interface AppDelegate ()
 
@@ -25,6 +26,13 @@
     // Override point for customization after application launch.
     [AVOSCloud setApplicationId:@"pcyalv4v2pufgejdxrpe6b1fvvuorkhm76tyzzri67p9iy4i"
                       clientKey:@"98efzkhtjyfxko9dd90nyi974zmgjr9u19zaax16k7xfz7k6"];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self setWindowRootViewController];
+    [self.window makeKeyAndVisible];
+    
+    return YES;
     //配置导航栏
     //[self initNavigation];
     //设置初始界面
@@ -78,12 +86,13 @@
 - (UIViewController *)creatHomeViewController
 {
     UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+    homeController.selectedViewController = homeController.viewControllers[0];
     return homeController;
 }
 
 - (void)setWindowRootViewController
 {
-    AVUser *user = [AVUser currentUser];
+     SMModelUser*user = [SMModelUser localUser];
     if (user == nil) {
         [self.window setRootViewController:[self creatLoginController]];
     }else{

@@ -40,13 +40,23 @@ static SMModelUser *currentUser;
 }
 
 + (SMModelUser *)currentUser{
-//    NSDictionary *currentUser = [CRDataSotreManage objectForKey:NSStringFromClass([SMModelUser class])];
-//    return currentUser?[SMModelUser objectWithKeyValues:currentUser]:nil;
+    
     if (!currentUser) {
         currentUser = [[SMModelUser alloc] init];
     }
     return currentUser;
 }
+
++ (SMModelUser *)localUser{
+    NSDictionary *currentUser = [CRDataSotreManage objectForKey:NSStringFromClass([SMModelUser class])];
+    return currentUser?[SMModelUser objectWithKeyValues:currentUser]:nil;
+}
+
+
++ (void)clearUser{
+    [CRDataSotreManage clearObjectForUserDefaultForKey:NSStringFromClass([SMModelUser class])];
+}
+
 + (void)saveUserToLocalWithUser:(SMModelUser *)user{
         [CRDataSotreManage setObject:[user keyValues] forKey:NSStringFromClass([SMModelUser class])];
 }

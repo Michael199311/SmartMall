@@ -25,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"购物车";
+
     [self upDateView];
     [self.tableView registerNib:[UINib nibWithNibName:@"SMShoppingCartCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     // Do any additional setup after loading the view.
@@ -38,9 +40,15 @@
     }
 }
 - (IBAction)pay:(UIButton *)sender {
+    SMModelUser *user = [SMModelUser currentUser];
+    if (user.commoditysArray.count == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"不能结算！" message:@"当前购物车没有物品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }else{
     SMSubmitOrderVC *vc = (SMSubmitOrderVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ConfirmOrder" andStroyBoardNameString:@"Main"];
     //[self presentViewController:vc animated:YES completion:nil];
     [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,7 +67,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SMShoppingCartCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    SMModelCommodity *commodity = self.dataSource[indexPath.row];
+    NSMutableArray *arr = self.dataSource[indexPath.row];
+    SMModelCommodity *commodity = arr[0];
     //NSArray *commodityArr = self.dataSource[indexPath.row];
     //cell.amount = commodityArr.count;
     //SMModelCommodity *commodity = commodityArr[0];
@@ -71,7 +80,7 @@
 //        }
 //    }
     
-    cell.amount = 1;
+    cell.amount = arr.count;
     cell.count.text = [NSString stringWithFormat:@"%ld",(long)cell.amount];
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.urls.firstObject]];
     if (data) {
@@ -103,14 +112,41 @@
     };
     SMMerchant *merchant = [SMModelUser currentUser].merchants[section];
     header.introduction.text = merchant._name;
-    header.minCost.text = [NSString stringWithFormat:@"%@起送",merchant.miniCost];
+    NSString *minCost = merchant.miniCost?merchant.miniCost:@"0";
+    header.minCost.text = [NSString stringWithFormat:@"%@起送",minCost];
     return header;
 }
 
-- (void)awakeCellButtonAction:(SMShoppingCartCell *)cell andCommodityArr:(NSArray *)commodityArr{
+- (void)awakeCellButtonAction:(SMShoppingCartCell *)cell andIndex:( NSIndexPath *)indexPath{
     __weak typeof (self) weakSelf = self;
     __weak typeof (SMShoppingCartCell *) weakCell = cell;
     __weak typeof (SMModelUser *)weakUser = [SMModelUser currentUser];
+    cell.buttonActionBlock = ^(NSDictionary *info, NSInteger type){
+        NSArray *arr = weakUser.commoditysArray[indexPath.row];
+        switch (type) {
+            case 0:
+                //选中该商品
+                
+                break;
+            case 1:
+                //减去一件该cell的商品
+                weakCell.amount --;
+                weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
+                break;
+            case 2:
+                //加上一件该cell的商品
+                
+                break;
+            default:
+                break;
+        }
+    };
+}
+
+- (void)awakeCellButtonAction:(SMShoppingCartCell *)cell andCommodityArr:(NSMutableArray *)commodityArr{
+    __weak typeof (self) weakSelf = self;
+    __weak typeof (SMShoppingCartCell *) weakCell = cell;
+   // __weak typeof (SMModelUser *)weakUser = [SMModelUser currentUser];
     SMModelCommodity *commodity = commodityArr[0];
     cell.buttonActionBlock = ^(NSDictionary *info, NSInteger type){
         switch (type) {
@@ -122,22 +158,17 @@
                 //减去一件该cell的商品
                 weakCell.amount --;
                 weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
-                NSUInteger a = 0;
-                for (int i=0; i<weakUser.commoditysArray.count; i++) {
-                    SMModelCommodity *cmdy = weakUser.commoditysArray[i];
-                    if ([cmdy.cmdyEncode isEqualToString:commodity.cmdyEncode]) {
-                        a = i;
-                    }
-                }
-                [weakUser.commoditysArray removeObjectAtIndex:a];
+                [commodityArr removeObjectAtIndex:0];
                 [weakSelf  upDateView];
+
                 break;
             case 2:
                 //加一件该cell的商品
                 weakCell.amount ++;
                 weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
-                [weakUser.commoditysArray addObject:commodity];
+                [commodityArr addObject:commodity];
                 [weakSelf upDateView];
+
                 break;
             default:
                 break;
@@ -169,6 +200,7 @@
                 }
                 [weakUser.commoditysArray removeObjectAtIndex:a];
                 [weakSelf  upDateView];
+
                 break;
             case 2:
                 //加一件该cell的商品
@@ -176,6 +208,7 @@
                 weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
                 [weakUser.commoditysArray addObject:commodity];
                 [weakSelf upDateView];
+
                 break;
             default:
                 break;
@@ -187,32 +220,35 @@
 - (NSInteger)caculateCellCount{
     
     NSArray *arr = [SMModelUser currentUser].commoditysArray;
-    self.dataSource = (NSMutableArray *)arr;
-//    for (int i=0; i<arr.count; i++) {
-//        SMModelCommodity *commodity = arr[i];
-//        NSMutableArray *arr1 = [[NSMutableArray alloc] init];
-//        for (int j = i+1; j<arr.count; j++) {
-//            SMModelCommodity *commodity1 = arr[j];
-//            [arr1 addObject:commodity];
-//            if ([commodity.cmdyEncode isEqualToString:commodity1.cmdyEncode]) {
-//                [arr1 addObject:commodity1];
-//            }
-//        }
-//        if (arr1.count != 0) {
-//            [self.dataSource addObject:arr1];
-//        }
-//    }
+    NSMutableArray *dataSourceCopy = [[NSMutableArray alloc] init];
+    int i = 0;
+    while (i<arr.count) {
+        SMModelCommodity *commodity = arr[i];
+        NSMutableArray *cmdyArr = [[NSMutableArray alloc] init];
+        for (SMModelCommodity *cmdy in arr) {
+            if ([cmdy.cmdyEncode isEqualToString:commodity.cmdyEncode]) {
+                [cmdyArr addObject:cmdy];
+                i++;
+            }
+        }
+        [dataSourceCopy addObject:cmdyArr];
+    }
+    self.dataSource = dataSourceCopy;
     return self.dataSource.count;
 }
 
 - (void)upDateView{
     double cost = 0;
-    NSArray *commodotys = [SMModelUser currentUser].commoditysArray;
-    for (SMModelCommodity *commodity in commodotys) {
-        cost += [commodity.price doubleValue];
+    int amout = 0;
+    //NSArray *commodotys = [SMModelUser currentUser].commoditysArray;
+    for (SMModelCommodity *commodity in [SMModelUser currentUser].commoditysArray) {
+        //for (SMModelCommodity *commodity in cmdyArr) {
+            cost += [commodity.price doubleValue];
+            amout ++;
+        //}
     }
     self.totalCost.text = [NSString stringWithFormat:@"合计:￥%.2f",cost];
-    [self.payButon setTitle:[NSString stringWithFormat:@"去结算:(%lu)",(unsigned long)commodotys.count] forState:UIControlStateNormal];
+    [self.payButon setTitle:[NSString stringWithFormat:@"去支付(%d)",amout] forState:UIControlStateNormal];
 }
 
 - (NSMutableArray *)dataSource{

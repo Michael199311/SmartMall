@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *detail;
 @property (weak, nonatomic) IBOutlet UIButton *shoppingCart;
 @property (weak, nonatomic) IBOutlet UIButton *addToShoppingCart;
+@property (strong, nonatomic) NSMutableArray *dataSource;
 
 @property (strong, nonatomic) SMModelCommodity *commodity;
 @end
@@ -26,8 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SMModelUser *user = [SMModelUser currentUser];
-    [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)user.commoditysArray.count] forState:UIControlStateNormal];
+    
+    
     NSDictionary *param = @{
                             @"mcEncode":self.mcEncode,
                             @"cmdyEncode":self.cmdyEncode
@@ -46,6 +47,12 @@
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    SMModelUser *user = [SMModelUser currentUser];
+    [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)user.commoditysArray.count] forState:UIControlStateNormal];
+}
+
 - (void)updateView{
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.commodity.urls.firstObject]];
     if (data) {
@@ -56,6 +63,9 @@
 }
 
 - (IBAction)turnToShoppingCart:(UIButton *)sender {
+//    if (self.dataSource.count != 0) {
+//        [[SMModelUser currentUser].commoditysArray addObject:self.dataSource];
+//    }
     UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
     homeController.selectedViewController = homeController.viewControllers[1];
     
@@ -65,14 +75,21 @@
 }
 
 - (IBAction)addToShoppingCart:(UIButton *)sender {
-    SMModelUser *user = [SMModelUser currentUser];
 
+    //[self.dataSource addObject:self.commodity];
+    SMModelUser *user = [SMModelUser currentUser];
     [user.commoditysArray addObject:self.commodity];
+//    [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)self.dataSource.count] forState:UIControlStateNormal];
     [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)user.commoditysArray.count] forState:UIControlStateNormal];
 
 }
 
-
+- (NSMutableArray *)dataSource{
+    if (!_dataSource) {
+        _dataSource = [[NSMutableArray alloc] init];
+    }
+    return _dataSource;
+}
 
 
 

@@ -19,7 +19,8 @@ typedef enum{
     SMWelcomePageTypeForgetPW
 }SMWelcomePageType;
 
-@interface SMRegisterAndLoginVC (){
+@interface SMRegisterAndLoginVC ()<UIAlertViewDelegate,UITextFieldDelegate>
+{
     SMWelcomePageType WelcomeType;
     UITextField *Phone;
     UITextField *NewPW;
@@ -86,21 +87,27 @@ typedef enum{
 - (void)login{
     NSString *username = self.loginView.phoneNumber.text;
     NSString *password = self.loginView.PassWord.text;
+    [SVProgressHUD showWithStatus:@"登录中..." maskType:SVProgressHUDMaskTypeGradient];
+    finishButton.enabled = NO;
     [AVUser logInWithUsernameInBackground:username password:password block:^(AVUser *user, NSError *error) {
+        finishButton.enabled = YES;
         if (user != nil) {
             NSLog(@"登录成功");
             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
             //保存用户信息
             [AVUser changeCurrentUser:user save:YES];
             
-            SMModelUser *SMUser = [SMModelUser currentUser];
+            SMModelUser *SMUser = [[SMModelUser alloc] init];
             SMUser.name = username;
+            SMUser.password = password;
             SMUser.phoneNumber = username;
-            //[SMModelUser saveUserToLocalWithUser:SMUser];
+            [SMModelUser saveUserToLocalWithUser:SMUser];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 //进入首页
-                SMHomePageViewController *homePageVC = (SMHomePageViewController  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
-                [self.navigationController pushViewController:homePageVC animated:YES];
+                //SMHomePageViewController *homePageVC = (SMHomePageViewController  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
+                UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
+                homeController.selectedViewController = homeController.viewControllers[0];
+                [self presentViewController:homeController animated:YES completion:nil];
             });
             
         }else{
@@ -121,10 +128,16 @@ typedef enum{
     user.password = self.registerView.PWTextField.text;
     user.mobilePhoneNumber = self.registerView.phoneNumber.text;
     [user setObject:user.username forKey:@"phone"];
+    [SVProgressHUD showWithStatus:@"注册中..." maskType:SVProgressHUDMaskTypeGradient];
+    finishButton.enabled = NO;
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        finishButton.enabled = YES;
         if (succeeded) {
             NSLog(@"注册成功");
             [SVProgressHUD showSuccessWithStatus:@"注册成功，请在5分钟内完成验证"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self showCodeInputTextField];
+            });
             self.registerView.securityCode.hidden = NO;
             self.registerView.checkButton.hidden = NO;
         }else{
@@ -139,7 +152,10 @@ typedef enum{
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
     }
     __weak typeof(self) weakSelf = self;
+    [SVProgressHUD showWithStatus:@"重置密码中..." maskType:SVProgressHUDMaskTypeGradient];
+    finishButton.enabled = NO;
     [AVUser resetPasswordWithSmsCode:self.forgetPWView.securityCode.text newPassword:self.forgetPWView.createPW.text block:^(BOOL succeeded, NSError *error) {
+        finishButton.enabled = YES;
         if (succeeded) {
             NSLog(@"重置密码成功");
             [SVProgressHUD showSuccessWithStatus:@"重置密码成功"];
@@ -218,6 +234,15 @@ typedef enum{
     }];
 }
 
+- (void)showCodeInputTextField{
+    UIAlertView *alert  = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"请输入验证码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+    UITextField *titleTextField = [alert textFieldAtIndex:0];
+    titleTextField.delegate = self;
+    titleTextField.keyboardType = UIKeyboardTypeNumberPad;
+    [alert show];
+}
+
 - (void)createView{
     Phone = [[UITextField alloc] init];
     switch (WelcomeType) {
@@ -272,6 +297,56 @@ typedef enum{
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        UITextField *textField = [alertView textFieldAtIndex:0];
+        NSLog(@"输入的验证码:%@",textField.text);
+        if (textField.text.length == 6) {
+            [SVProgressHUD showWithStatus:@"验证短信验证码中，请稍候..." maskType:SVProgressHUDMaskTypeGradient];
+            [AVUser verifyMobilePhone:textField.text withBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"验证短信验证码成功");
+                    [SVProgressHUD showSuccessWithStatus:@"验证短信验证码成功"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        WelcomeType = SMWelcomePageTypeLogin;
+                        [self createLoginView];
+                    });
+                    
+                }else{
+                    NSLog(@"验证短信验证码失败");
+                    [SVProgressHUD showErrorWithStatus:@"验证短信验证码失败"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self showCodeInputTextField];
+                    });
+                }
+            }];
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"请输入正确的6位PIN码！"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self showCodeInputTextField];
+            });
+        }
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //length == 0表示输入，否则表示删除
+    NSString *text = textField.text;//编辑前的文本
+    CGFloat length = 0;//编辑后文本长度
+    if (range.length == 0) {
+        
+        //计算输入后，文本长度是否大于6
+        length = text.length + 1;
+    }else{
+        length = text.length - 1;
+    }
+    if (length > 6) {
+        return NO;
+    }
+    return YES;
+}
+
 - (SMLoginView *)loginView{
     if (!_loginView) {
         _loginView = [SMLoginView loadNibName:@"SMLoginView"];
@@ -283,7 +358,7 @@ typedef enum{
 - (SMRegisterView *)registerView{
     if (!_registerView) {
         _registerView = [SMRegisterView loadNibName:@"SMRegisterView"];
-        _registerView.frame = CGRectMake(0, 120, self.view.frame.size.width, 350);;
+        _registerView.frame = CGRectMake(0, 120, self.view.frame.size.width, 250);;
     }
     return _registerView;
 }

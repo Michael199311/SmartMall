@@ -18,6 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"地址列表";
+
     // Do any additional setup after loading the view.
 }
 - (IBAction)changeAddress:(UIButton *)sender {
