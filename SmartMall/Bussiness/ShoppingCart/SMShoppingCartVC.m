@@ -27,10 +27,17 @@
     [super viewDidLoad];
     self.title = @"购物车";
 
-    [self upDateView];
     [self.tableView registerNib:[UINib nibWithNibName:@"SMShoppingCartCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     // Do any additional setup after loading the view.
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self upDateView];
+    [self.tableView reloadData];
+
+}
+
 - (IBAction)chooseAll:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
