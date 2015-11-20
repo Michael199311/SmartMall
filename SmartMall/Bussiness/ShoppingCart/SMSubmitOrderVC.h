@@ -7,8 +7,9 @@
 //
 
 #import "CRBaseViewController.h"
+#import "SMBaseViewController.h"
 
-@interface SMSubmitOrderVC : UIViewController
+@interface SMSubmitOrderVC : SMBaseViewController
 
 @property (strong, nonatomic) NSMutableArray *imageArr;
 

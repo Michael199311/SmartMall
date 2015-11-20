@@ -7,7 +7,8 @@
 //
 
 #import "CRBaseViewController.h"
+#import "SMBaseViewController.h"
 
-@interface SMClassifyVC : UIViewController
+@interface SMClassifyVC : SMBaseViewController
 
 @end

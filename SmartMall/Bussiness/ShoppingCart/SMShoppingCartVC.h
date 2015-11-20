@@ -7,8 +7,9 @@
 //
 
 #import "CRBaseViewController.h"
+#import "SMBaseViewController.h"
 
-@interface SMShoppingCartVC : UIViewController
+@interface SMShoppingCartVC : SMBaseViewController
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 

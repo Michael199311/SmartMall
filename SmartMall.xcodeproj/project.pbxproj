@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4110CF43E8F137F773532AC6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB65A3FCD0E467571F1C8F8 /* libPods.a */; };
+		4B228A221BFCBF8D00FC9265 /* SMButtomNavigater.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B228A211BFCBF8D00FC9265 /* SMButtomNavigater.m */; };
+		4B228A261BFCC17400FC9265 /* SMButtomNavigater.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B228A251BFCC17400FC9265 /* SMButtomNavigater.xib */; };
 		4B2484F61BEA4A3A00D3B618 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2484EF1BEA4A3A00D3B618 /* TAAbstractDotView.m */; };
 		4B2484F71BEA4A3A00D3B618 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2484F11BEA4A3A00D3B618 /* TAAnimatedDotView.m */; };
 		4B2484F81BEA4A3A00D3B618 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2484F31BEA4A3A00D3B618 /* TADotView.m */; };
@@ -15,6 +17,15 @@
 		4B2485001BEA4A6A00D3B618 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2484FB1BEA4A6A00D3B618 /* SDCollectionViewCell.m */; };
 		4B2485011BEA4A6A00D3B618 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2484FD1BEA4A6A00D3B618 /* SDCycleScrollView.m */; };
 		4B2485021BEA4A6A00D3B618 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2484FF1BEA4A6A00D3B618 /* UIView+SDExtension.m */; };
+		4B37F8621BF4794600C8CBBD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B37F8611BF4794600C8CBBD /* CoreLocation.framework */; };
+		4B37F8641BF4795000C8CBBD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B37F8631BF4795000C8CBBD /* MapKit.framework */; };
+		4B4D57E71BFED17100CDB6A2 /* SMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4D57E61BFED17100CDB6A2 /* SMBaseViewController.m */; };
+		4B651E191BF37CB700B46809 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B651E131BF37CB700B46809 /* Icon-60@2x.png */; };
+		4B651E1A1BF37CB700B46809 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B651E141BF37CB700B46809 /* Icon-60@3x.png */; };
+		4B651E1B1BF37CB700B46809 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B651E151BF37CB700B46809 /* Icon-Small@2x.png */; };
+		4B651E1C1BF37CB700B46809 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B651E161BF37CB700B46809 /* Icon-Small@3x.png */; };
+		4B651E1D1BF37CB700B46809 /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B651E171BF37CB700B46809 /* Icon-Spotlight-40@2x.png */; };
+		4B651E1E1BF37CB700B46809 /* Icon_Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B651E181BF37CB700B46809 /* Icon_Spotlight-40@3x.png */; };
 		4C0954631BCBE79900CEFE21 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0954621BCBE79900CEFE21 /* main.m */; };
 		4C0954661BCBE79900CEFE21 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0954651BCBE79900CEFE21 /* AppDelegate.m */; };
 		4C09546C1BCBE79900CEFE21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C09546A1BCBE79900CEFE21 /* Main.storyboard */; };
@@ -88,7 +99,6 @@
 		4C8027FC1BD74E88009D1865 /* SMSubmitOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8027FB1BD74E88009D1865 /* SMSubmitOrderVC.m */; };
 		4C8027FF1BD74F03009D1865 /* SMAddressListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8027FE1BD74F03009D1865 /* SMAddressListVC.m */; };
 		4C8028021BD75A15009D1865 /* SMAddAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8028011BD75A15009D1865 /* SMAddAddressVC.m */; };
-		4C8028061BD8AFFC009D1865 /* SMHomePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8028051BD8AFFC009D1865 /* SMHomePageView.m */; };
 		4CCE017A1BDD0F8C00FA0093 /* CRDataSotreManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCE01791BDD0F8C00FA0093 /* CRDataSotreManage.m */; };
 		4CF61C6C1BD12A1000495356 /* CRBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61C6B1BD12A1000495356 /* CRBaseViewController.m */; };
 		4CF61C8D1BD12B0700495356 /* CRAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF61C6F1BD12B0700495356 /* CRAnimationManager.m */; };
@@ -141,6 +151,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B228A201BFCBF8D00FC9265 /* SMButtomNavigater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMButtomNavigater.h; sourceTree = "<group>"; };
+		4B228A211BFCBF8D00FC9265 /* SMButtomNavigater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMButtomNavigater.m; sourceTree = "<group>"; };
+		4B228A251BFCC17400FC9265 /* SMButtomNavigater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMButtomNavigater.xib; sourceTree = "<group>"; };
 		4B2484EE1BEA4A3A00D3B618 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAbstractDotView.h; path = SDCycleScrollView/PageControl/TAAbstractDotView.h; sourceTree = "<group>"; };
 		4B2484EF1BEA4A3A00D3B618 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAAbstractDotView.m; path = SDCycleScrollView/PageControl/TAAbstractDotView.m; sourceTree = "<group>"; };
 		4B2484F01BEA4A3A00D3B618 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAnimatedDotView.h; path = SDCycleScrollView/PageControl/TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -155,6 +168,16 @@
 		4B2484FD1BEA4A6A00D3B618 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDCycleScrollView.m; path = SDCycleScrollView/SDCycleScrollView.m; sourceTree = "<group>"; };
 		4B2484FE1BEA4A6A00D3B618 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SDExtension.h"; path = "SDCycleScrollView/UIView+SDExtension.h"; sourceTree = "<group>"; };
 		4B2484FF1BEA4A6A00D3B618 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+SDExtension.m"; path = "SDCycleScrollView/UIView+SDExtension.m"; sourceTree = "<group>"; };
+		4B37F8611BF4794600C8CBBD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4B37F8631BF4795000C8CBBD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4B4D57E51BFED17100CDB6A2 /* SMBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBaseViewController.h; sourceTree = "<group>"; };
+		4B4D57E61BFED17100CDB6A2 /* SMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBaseViewController.m; sourceTree = "<group>"; };
+		4B651E131BF37CB700B46809 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		4B651E141BF37CB700B46809 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		4B651E151BF37CB700B46809 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		4B651E161BF37CB700B46809 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
+		4B651E171BF37CB700B46809 /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
+		4B651E181BF37CB700B46809 /* Icon_Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon_Spotlight-40@3x.png"; sourceTree = "<group>"; };
 		4C09545E1BCBE79900CEFE21 /* SmartMall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartMall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0954621BCBE79900CEFE21 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C0954641BCBE79900CEFE21 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -289,8 +312,6 @@
 		4C8028001BD75A15009D1865 /* SMAddAddressVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAddAddressVC.h; sourceTree = "<group>"; };
 		4C8028011BD75A15009D1865 /* SMAddAddressVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAddAddressVC.m; sourceTree = "<group>"; };
 		4C8028031BD75C8F009D1865 /* SmartMall.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartMall.pch; sourceTree = "<group>"; };
-		4C8028041BD8AFFC009D1865 /* SMHomePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMHomePageView.h; sourceTree = "<group>"; };
-		4C8028051BD8AFFC009D1865 /* SMHomePageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMHomePageView.m; sourceTree = "<group>"; };
 		4CCE01781BDD0F8C00FA0093 /* CRDataSotreManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRDataSotreManage.h; sourceTree = "<group>"; };
 		4CCE01791BDD0F8C00FA0093 /* CRDataSotreManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRDataSotreManage.m; sourceTree = "<group>"; };
 		4CF61C6A1BD12A1000495356 /* CRBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRBaseViewController.h; sourceTree = "<group>"; };
@@ -344,6 +365,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B37F8641BF4795000C8CBBD /* MapKit.framework in Frameworks */,
+				4B37F8621BF4794600C8CBBD /* CoreLocation.framework in Frameworks */,
 				4CF61CA01BD12E1000495356 /* ImageIO.framework in Frameworks */,
 				4CF61C9E1BD12DFB00495356 /* CoreText.framework in Frameworks */,
 				4110CF43E8F137F773532AC6 /* libPods.a in Frameworks */,
@@ -376,6 +399,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4B228A1F1BFCBF6800FC9265 /* BottomNavigater */ = {
+			isa = PBXGroup;
+			children = (
+				4B228A201BFCBF8D00FC9265 /* SMButtomNavigater.h */,
+				4B228A211BFCBF8D00FC9265 /* SMButtomNavigater.m */,
+				4B228A251BFCC17400FC9265 /* SMButtomNavigater.xib */,
+			);
+			path = BottomNavigater;
+			sourceTree = "<group>";
+		};
 		4B2484EC1BEA49FC00D3B618 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,9 +438,23 @@
 			name = PageControl;
 			sourceTree = "<group>";
 		};
+		4B651E121BF37CB700B46809 /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				4B651E131BF37CB700B46809 /* Icon-60@2x.png */,
+				4B651E141BF37CB700B46809 /* Icon-60@3x.png */,
+				4B651E151BF37CB700B46809 /* Icon-Small@2x.png */,
+				4B651E161BF37CB700B46809 /* Icon-Small@3x.png */,
+				4B651E171BF37CB700B46809 /* Icon-Spotlight-40@2x.png */,
+				4B651E181BF37CB700B46809 /* Icon_Spotlight-40@3x.png */,
+			);
+			path = Icon;
+			sourceTree = "<group>";
+		};
 		4C0954551BCBE79900CEFE21 = {
 			isa = PBXGroup;
 			children = (
+				4B651E121BF37CB700B46809 /* Icon */,
 				4C0954601BCBE79900CEFE21 /* SmartMall */,
 				4C09547D1BCBE79900CEFE21 /* SmartMallTests */,
 				4C0954881BCBE79900CEFE21 /* SmartMallUITests */,
@@ -509,8 +556,6 @@
 				4C0954C31BCD2B9F00CEFE21 /* SMGoodsCell.xib */,
 				4CF61CB31BD1FBD600495356 /* SMHomePageViewController.h */,
 				4CF61CB41BD1FBD600495356 /* SMHomePageViewController.m */,
-				4C8028041BD8AFFC009D1865 /* SMHomePageView.h */,
-				4C8028051BD8AFFC009D1865 /* SMHomePageView.m */,
 				4C8027A31BD4E24F009D1865 /* SMMerchantDetailVC.h */,
 				4C8027A41BD4E24F009D1865 /* SMMerchantDetailVC.m */,
 				4CF85B0C1BDE6F5F0084EA5D /* SMMerchantCollectionView.h */,
@@ -596,9 +641,12 @@
 		4C0954E01BCE9BED00CEFE21 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				4B228A1F1BFCBF6800FC9265 /* BottomNavigater */,
 				4CF61CA51BD143BB00495356 /* Model */,
 				4CF61C6A1BD12A1000495356 /* CRBaseViewController.h */,
 				4CF61C6B1BD12A1000495356 /* CRBaseViewController.m */,
+				4B4D57E51BFED17100CDB6A2 /* SMBaseViewController.h */,
+				4B4D57E61BFED17100CDB6A2 /* SMBaseViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -770,6 +818,8 @@
 		CD0EF951117F670E9E362253 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B37F8631BF4795000C8CBBD /* MapKit.framework */,
+				4B37F8611BF4794600C8CBBD /* CoreLocation.framework */,
 				4CF61C9F1BD12E1000495356 /* ImageIO.framework */,
 				4CF61C9D1BD12DFB00495356 /* CoreText.framework */,
 				8DB65A3FCD0E467571F1C8F8 /* libPods.a */,
@@ -889,17 +939,24 @@
 				4C0954741BCBE79900CEFE21 /* LaunchScreen.storyboard in Resources */,
 				4C8027BF1BD519DA009D1865 /* MultilevelCollectionViewCell.xib in Resources */,
 				4C8027BD1BD519DA009D1865 /* CollectionHeader.xib in Resources */,
+				4B651E1C1BF37CB700B46809 /* Icon-Small@3x.png in Resources */,
 				4CF61CA91BD143BB00495356 /* level3.json in Resources */,
 				4C0954CF1BCE76B600CEFE21 /* SMShoppingCartCell.xib in Resources */,
+				4B651E1E1BF37CB700B46809 /* Icon_Spotlight-40@3x.png in Resources */,
 				4C0954711BCBE79900CEFE21 /* Assets.xcassets in Resources */,
 				4C09546C1BCBE79900CEFE21 /* Main.storyboard in Resources */,
+				4B228A261BFCC17400FC9265 /* SMButtomNavigater.xib in Resources */,
+				4B651E1A1BF37CB700B46809 /* Icon-60@3x.png in Resources */,
 				4C0954C51BCD2B9F00CEFE21 /* SMGoodsCell.xib in Resources */,
 				4C0954DA1BCE827500CEFE21 /* SMGoodsDetailView.xib in Resources */,
+				4B651E1B1BF37CB700B46809 /* Icon-Small@2x.png in Resources */,
 				4C0954BB1BCCD48100CEFE21 /* SMForgetPWView.xib in Resources */,
+				4B651E1D1BF37CB700B46809 /* Icon-Spotlight-40@2x.png in Resources */,
 				4C0954B61BCCD34F00CEFE21 /* SMRegisterView.xib in Resources */,
 				4CF61CAC1BD1440A00495356 /* level1.json in Resources */,
 				4C8027C11BD519DA009D1865 /* MultilevelTableViewCell.xib in Resources */,
 				4C8027F91BD73721009D1865 /* SMShoppingCartHeader.xib in Resources */,
+				4B651E191BF37CB700B46809 /* Icon-60@2x.png in Resources */,
 				4CF61CA81BD143BB00495356 /* level2.json in Resources */,
 				4C0954DF1BCE855800CEFE21 /* SMGoodsInfoView.xib in Resources */,
 				4C0954C01BCD25F200CEFE21 /* SMMarketListCell.xib in Resources */,
@@ -1021,13 +1078,13 @@
 				4B2485021BEA4A6A00D3B618 /* UIView+SDExtension.m in Sources */,
 				4CF85AC51BDE53F40084EA5D /* CRTextFieldFormat.m in Sources */,
 				4C8027F71BD73710009D1865 /* SMShoppingCartHeader.m in Sources */,
+				4B4D57E71BFED17100CDB6A2 /* SMBaseViewController.m in Sources */,
 				4C8027C21BD519DA009D1865 /* MultilevelMenu.m in Sources */,
 				4C8027E11BD519E2009D1865 /* NSData+ImageContentType.m in Sources */,
 				4C8027991BD4D7BB009D1865 /* MJConst.m in Sources */,
 				4C8027BC1BD519DA009D1865 /* CollectionHeader.m in Sources */,
 				4C8027E91BD519E2009D1865 /* UIButton+WebCache.m in Sources */,
 				4C8027EE1BD519E2009D1865 /* UIView+WebCacheOperation.m in Sources */,
-				4C8028061BD8AFFC009D1865 /* SMHomePageView.m in Sources */,
 				4CF85AC41BDE53F40084EA5D /* CRTextField.m in Sources */,
 				4CF61C8D1BD12B0700495356 /* CRAnimationManager.m in Sources */,
 				4C80279D1BD4D7BC009D1865 /* MJMethod.m in Sources */,
@@ -1040,6 +1097,7 @@
 				4CF85AB81BDE3C980084EA5D /* SMModelUser.m in Sources */,
 				4C09546F1BCBE79900CEFE21 /* SmartMall.xcdatamodeld in Sources */,
 				4CF85AC31BDE53F40084EA5D /* CRMinoruTextField.m in Sources */,
+				4B228A221BFCBF8D00FC9265 /* SMButtomNavigater.m in Sources */,
 				4B2485011BEA4A6A00D3B618 /* SDCycleScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1200,7 +1258,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = SmartMall/SmartMall.pch;
 				INFOPLIST_FILE = SmartMall/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SmartMall.app.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1219,7 +1277,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = SmartMall/SmartMall.pch;
 				INFOPLIST_FILE = SmartMall/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SmartMall.app.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";

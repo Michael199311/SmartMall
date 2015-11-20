@@ -16,7 +16,8 @@
 typedef enum{
     SMWelcomePageTypeRegister = 0,
     SMWelcomePageTypeLogin,
-    SMWelcomePageTypeForgetPW
+    SMWelcomePageTypeForgetPW,
+    SMWelcomePageTypeVerify
 }SMWelcomePageType;
 
 @interface SMRegisterAndLoginVC ()<UIAlertViewDelegate,UITextFieldDelegate>
@@ -30,6 +31,9 @@ typedef enum{
     __weak IBOutlet UIButton *loginButton;
     
     __weak IBOutlet UIButton *finishButton;
+    NSTimer *timer;
+    int count;
+    
     
 }
 
@@ -39,9 +43,12 @@ typedef enum{
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    count = 0;
+//    self.registerView.securityCode.hidden = YES;
+//    self.registerView.checkButton.hidden = YES;
     WelcomeType = SMWelcomePageTypeLogin;
     statusView = [[UIView alloc] init];
-    statusView.frame = CGRectMake(loginButton.x , loginButton.y + loginButton.height +1, loginButton.width, 1);
+    statusView.frame = CGRectMake(self.view.width/2 , 71, self.view.width/2 - 8, 1);
     statusView.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:statusView];
     [self createView];
@@ -56,16 +63,20 @@ typedef enum{
 - (IBAction)turnRegisterView:(UIButton *)sender {
     WelcomeType = SMWelcomePageTypeRegister;
     statusView.frame = CGRectMake(sender.x, sender.y + sender.height +1, sender.width, 1);
+    NSLog(@"%f,%f,%f,%f",sender.x,sender.y,sender.height,sender.width);
     [self createView];
 }
 
 - (IBAction)turnLoginView:(UIButton *)sender {
     statusView.frame = CGRectMake(sender.x, sender.y + sender.height +1, sender.width, 1);
+    NSLog(@"%f,%f,%f,%f",sender.x,sender.y,sender.height,sender.width);
+
     WelcomeType = SMWelcomePageTypeLogin;
     [self createView];
 }
 
 - (IBAction)finish:(UIButton *)sender {
+    [timer invalidate];
     switch (WelcomeType) {
         case SMWelcomePageTypeLogin:
             //登录
@@ -79,12 +90,24 @@ typedef enum{
             //提交新密码
             [self resetPassword];
             break;
+        case SMWelcomePageTypeVerify:
+            //注册页面验证手机号
+            [self verifyPhoneNumber];
+            break;
+            
         default:
             break;
     }
 }
 
 - (void)login{
+    if (![NSString isNotEmptyString:self.loginView.phoneNumber.text]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入登录账号"];
+        return;
+    }else if (![NSString isNotEmptyString:self.loginView.PassWord.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入登录密码"];
+        return;
+    }
     NSString *username = self.loginView.phoneNumber.text;
     NSString *password = self.loginView.PassWord.text;
     [SVProgressHUD showWithStatus:@"登录中..." maskType:SVProgressHUDMaskTypeGradient];
@@ -105,8 +128,7 @@ typedef enum{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 //进入首页
                 //SMHomePageViewController *homePageVC = (SMHomePageViewController  *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
-                UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
-                homeController.selectedViewController = homeController.viewControllers[0];
+                SMHomePageViewController *homeController = (SMHomePageViewController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
                 [self presentViewController:homeController animated:YES completion:nil];
             });
             
@@ -119,6 +141,16 @@ typedef enum{
 }
 
 - (void)registerNewUser{
+    if (![NSString isNotEmptyString:self.registerView.phoneNumber.text]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入注册手机号"];
+        return;
+    }else if (![NSString isNotEmptyString:self.registerView.PWTextField.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入密码"];
+        return;
+    }else if (![NSString isNotEmptyString:self.registerView.ConfirmPW.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入确认密码"];
+        return;
+    }
     if (![self.registerView.PWTextField.text isEqualToString:self.registerView.ConfirmPW.text]) {
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
         return;
@@ -135,11 +167,14 @@ typedef enum{
         if (succeeded) {
             NSLog(@"注册成功");
             [SVProgressHUD showSuccessWithStatus:@"注册成功，请在5分钟内完成验证"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self showCodeInputTextField];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //[self showCodeInputTextField];
+                self.registerView.securityCode.hidden = NO;
+                self.registerView.checkButton.hidden = NO;
             });
-            self.registerView.securityCode.hidden = NO;
-            self.registerView.checkButton.hidden = NO;
+            WelcomeType = SMWelcomePageTypeVerify;
+            [self startTimer];
+            [finishButton setTitle:@"验证" forState:UIControlStateNormal];
         }else{
             NSLog(@"注册失败:%@",error);
             [SVProgressHUD showErrorWithStatus:@"注册失败"];
@@ -148,6 +183,19 @@ typedef enum{
 }
 
 - (void)resetPassword{
+    if (![NSString isNotEmptyString:self.forgetPWView.phoneNumber.text]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入注册手机号"];
+        return;
+    }else if (![NSString isNotEmptyString:self.forgetPWView.createPW.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入密码"];
+        return;
+    }else if (![NSString isNotEmptyString:self.forgetPWView.confirmPW.text]){
+        [SVProgressHUD showErrorWithStatus:@"请输入确认密码"];
+        return;
+    }else if (![NSString isNotEmptyString:self.forgetPWView.securityCode.text]) {
+        [SVProgressHUD showErrorWithStatus:@"请输入验证码"];
+        return;
+    }
     if (![self.forgetPWView.createPW.text isEqualToString:self.forgetPWView.confirmPW.text]) {
         [SVProgressHUD showErrorWithStatus:@"两次输入密码不一致"];
     }
@@ -177,20 +225,7 @@ typedef enum{
             case 0:
                 //验证验证码
             {
-                [AVUser verifyMobilePhone:weakSelf.registerView.securityCode.text withBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        NSLog(@"验证短信验证码成功");
-                        [SVProgressHUD showSuccessWithStatus:@"验证短信验证码成功"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            WelcomeType = SMWelcomePageTypeLogin;
-                            [weakSelf createLoginView];
-                        });
-                        
-                    }else{
-                        NSLog(@"验证短信验证码失败");
-                        [SVProgressHUD showErrorWithStatus:@"验证短信验证码失败"];
-                    }
-                }];
+                [weakSelf getSecurityCode];
             }
                 break;
                 
@@ -224,23 +259,91 @@ typedef enum{
 }
 
 - (void)getSecurityCode{
-    [AVUser requestPasswordResetWithPhoneNumber:self.forgetPWView.phoneNumber.text block:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"获取短信验证码成功");
-        } else {
-            NSLog(@"获取短信验证码失败:%@",error);
-            [SVProgressHUD showErrorWithStatus:@"获取短信验证码失败"];
-        }
-    }];
+    if (WelcomeType == SMWelcomePageTypeForgetPW) {
+        [AVUser requestPasswordResetWithPhoneNumber:self.forgetPWView.phoneNumber.text block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"获取短信验证码成功");
+                [self startTimer];
+            } else {
+                NSLog(@"获取短信验证码失败:%@",error);
+                [SVProgressHUD showErrorWithStatus:@"获取短信验证码失败"];
+            }
+        }];
+    }else{
+        WelcomeType = SMWelcomePageTypeVerify;
+        [finishButton setTitle:@"验证" forState:UIControlStateNormal];
+        [AVUser requestMobilePhoneVerify:self.registerView.phoneNumber.text withBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"重新获取验证码成功");
+                [self startTimer];
+            }else{
+                NSLog(@"获取验证码失败:%@",error);
+                [SVProgressHUD showErrorWithStatus:@"获取验证码失败"];
+            }
+        }];
+    }
 }
 
 - (void)showCodeInputTextField{
-    UIAlertView *alert  = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"请输入验证码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    UIAlertView *alert  = [[UIAlertView alloc] initWithTitle:@"注册成功" message:@"请输入验证码" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重新获取", nil];
     alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     UITextField *titleTextField = [alert textFieldAtIndex:0];
     titleTextField.delegate = self;
     titleTextField.keyboardType = UIKeyboardTypeNumberPad;
     [alert show];
+}
+
+- (void)verifyPhoneNumber{
+    [SVProgressHUD showWithStatus:@"验证短信验证码中，请稍候..." maskType:SVProgressHUDMaskTypeGradient];
+    [AVUser verifyMobilePhone:self.registerView.securityCode.text withBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"验证短信验证码成功");
+            [SVProgressHUD showSuccessWithStatus:@"验证短信验证码成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                WelcomeType = SMWelcomePageTypeLogin;
+                [self createLoginView];
+            });
+            
+        }else{
+            NSLog(@"验证短信验证码失败");
+            [SVProgressHUD showErrorWithStatus:@"验证短信验证码失败"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self showCodeInputTextField];
+            });
+        }
+    }];
+}
+
+- (void)startTimer{
+    if (WelcomeType == SMWelcomePageTypeVerify || WelcomeType == SMWelcomePageTypeRegister) {
+        self.registerView.checkButton.enabled = NO;
+        [self.registerView.checkButton setTitle:@"60" forState:UIControlStateNormal];
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeButtonTitle) userInfo:nil repeats:YES];
+    }else if (WelcomeType == SMWelcomePageTypeForgetPW){
+        self.forgetPWView.getSecurityCodeButton.enabled = NO;
+        [self.forgetPWView.getSecurityCodeButton setTitle:@"60" forState:UIControlStateNormal];
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeButtonTitle) userInfo:nil repeats:YES];
+    }
+}
+
+- (void)changeButtonTitle{
+    count ++;
+    NSString *title = [[NSString alloc] init];
+    if (count == 60) {
+        [timer invalidate];
+        count = 0;
+        title = @"重新获取";
+        self.registerView.checkButton.enabled = YES;
+        self.forgetPWView.getSecurityCodeButton.enabled = YES;
+    }else{
+    title = [NSString stringWithFormat:@"%d",60-count];
+    }
+    if (WelcomeType == SMWelcomePageTypeVerify || WelcomeType == SMWelcomePageTypeRegister) {
+        [self.registerView.checkButton setTitle:title forState:UIControlStateNormal];
+    }else if (WelcomeType == SMWelcomePageTypeForgetPW){
+        [self.forgetPWView.getSecurityCodeButton setTitle:title forState:UIControlStateNormal];
+    }
+    
 }
 
 - (void)createView{
@@ -268,8 +371,6 @@ typedef enum{
 
 - (void)createRegisterView{
     [finishButton setTitle:@"完成" forState:UIControlStateNormal];
-    self.registerView.securityCode.hidden = YES;
-    self.registerView.checkButton.hidden = YES;
     [self.loginView removeFromSuperview];
     [self.forgetPWView removeFromSuperview];
     [self.view addSubview:self.registerView];
@@ -326,6 +427,8 @@ typedef enum{
                 [self showCodeInputTextField];
             });
         }
+    }else if (buttonIndex == 1){
+        [self verifyPhoneNumber];
     }
 }
 
@@ -358,7 +461,7 @@ typedef enum{
 - (SMRegisterView *)registerView{
     if (!_registerView) {
         _registerView = [SMRegisterView loadNibName:@"SMRegisterView"];
-        _registerView.frame = CGRectMake(0, 120, self.view.frame.size.width, 250);;
+        _registerView.frame = CGRectMake(0, 120, self.view.frame.size.width, 321);;
     }
     return _registerView;
 }

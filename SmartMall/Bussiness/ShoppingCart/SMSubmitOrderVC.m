@@ -26,10 +26,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *amount;
 @property (weak, nonatomic) IBOutlet UILabel *payWay;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-@property (nonatomic, strong) NSMutableArray *imagesArray;
 @property (weak, nonatomic) IBOutlet UITextField *receiver;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberTextField;
 @property (weak, nonatomic) IBOutlet UITextField *addressTextField;
+@property (nonatomic, strong) SMButtomNavigater *bottomNavigater;
 
 @end
 
@@ -37,27 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"订单确认";
-    count = [SMModelUser currentUser].commoditysArray.count;
-//    for (NSArray *cmdyArrs in [SMModelUser currentUser].commoditysArray) {
-//        count += cmdyArrs.count;
-//    }
-    self.amount.text = [NSString stringWithFormat:@"共%lu件",(unsigned long)count];
-    //SMModelUser *user = (SMModelUser *)[SMModelUser currentUser];
-    //self.name.text = user.defaultConsigneeInfo[@"name"];
-    //self.phoneNmuber.text = user.defaultConsigneeInfo[@"phone"];
-    //self.address.text = user.defaultConsigneeInfo[@"address"];
-    //    for (int i=0; i<user.commoditysArray.count; i++) {
-    //        //SMModelCommodity *commodity = user.commoditysArray[i];
-    //        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.url]];
-    //        if (data) {
-    //            UIImage *image = [UIImage imageWithData:data];
-    //            [self. addObject:image];
-    //        }
-    //    }
-    //    self.amount.text = [NSString stringWithFormat:@"共%lu件",(unsigned long)user.commoditysArray.count];
-    //[self.submitButton makeCornerRadiusOfRadius:10.0f andBorderWidth:1.0f andBorderColor:[UIColor ]]
-    // Do any additional setup after loading the view.
+    self.bottomNavigater.controller =self;
+
+    [self updateUI];
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -146,6 +129,22 @@
 }
     }
 
+- (void)updateUI{
+    self.title = @"订单确认";
+    count = [SMModelUser currentUser].commoditysArray.count;
+    self.amount.text = [NSString stringWithFormat:@"共%lu件",(unsigned long)count];
+    if (self.imageArr[0]) {
+        self.image1.image = self.imageArr[0];
+    }
+    if (self.imageArr[1]) {
+        self.imag2.image = self.imageArr[1];
+    }
+    if (self.imageArr[2]) {
+        self.image3.image = self.imageArr[2];
+    }
+    
+}
+
 - (NSMutableArray *)imageArr{
     if (!_imageArr) {
         _imageArr = [[NSMutableArray alloc] init];
@@ -158,6 +157,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (SMButtomNavigater *)bottomNavigater{
+    if (!_bottomNavigater) {
+        _bottomNavigater = [SMButtomNavigater sharedButtomNavigater];
+        _bottomNavigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        [self.view addSubview:self.bottomNavigater];
+    }
+    return _bottomNavigater;
 }
 
 /*

@@ -20,6 +20,7 @@
     @property (nonatomic, strong) NSMutableArray *level2;
     @property (nonatomic, strong) NSMutableArray *level3;
 
+@property (nonatomic, strong) SMButtomNavigater *bottomNavigater;
 
 @end
 
@@ -27,6 +28,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bottomNavigater.controller =self;
+
     self.title = @"商品分类";
 
     NSMutableArray * lis=[NSMutableArray arrayWithCapacity:0];
@@ -111,7 +114,7 @@
     __block NSString *A  = @"A";
     __block NSString *B = @"00";
     __block NSString *C = @"00";
-    MultilevelMenu * view=[[MultilevelMenu alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) WithData:lis withSelectIndex:^(NSInteger left, NSInteger right,rightMeun* info) {
+    MultilevelMenu * view=[[MultilevelMenu alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-118) WithData:lis withSelectIndex:^(NSInteger left, NSInteger right,rightMeun* info) {
         SMClassifyDetailVC *classifyDetailVC = (SMClassifyDetailVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ClassifyDetailVC" andStroyBoardNameString:@"Main"];
         
         if (left == 0) {
@@ -224,6 +227,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (SMButtomNavigater *)bottomNavigater{
+    if (!_bottomNavigater) {
+        _bottomNavigater = [SMButtomNavigater sharedButtomNavigater];
+        _bottomNavigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        [self.view addSubview:self.bottomNavigater];
+        [self.view bringSubviewToFront:self.bottomNavigater];
+    }
+    return _bottomNavigater;
+}
+
 
 /*
 #pragma mark - Navigation

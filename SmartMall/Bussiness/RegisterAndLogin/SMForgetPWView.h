@@ -14,5 +14,6 @@ typedef void(^buttonAction)(NSDictionary *info,NSInteger type);
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
 @property (weak, nonatomic) IBOutlet UITextField *createPW;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPW;
+@property (weak, nonatomic) IBOutlet UIButton *getSecurityCodeButton;
 @property (weak, nonatomic) IBOutlet UITextField *securityCode;
 @end

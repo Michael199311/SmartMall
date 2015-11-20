@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="128.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WQD-9f-yYT">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="6按钮_0002_1115_11_29" translatesAutoresizingMaskIntoConstraints="NO" id="WQD-9f-yYT">
                         <rect key="frame" x="16" y="16" width="100" height="96"/>
                         <animations/>
                         <constraints>
@@ -29,7 +29,7 @@
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="世纪联华桂林公园店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="meY-IA-pfF">
-                        <rect key="frame" x="124" y="16" width="246" height="27"/>
+                        <rect key="frame" x="124" y="16" width="246" height="26.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="起送" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XjV-ed-qLL">
-                        <rect key="frame" x="446" y="21" width="34" height="21"/>
+                        <rect key="frame" x="446" y="21.5" width="34" height="20.5"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="34" id="bh2-tw-T1a"/>
@@ -56,14 +56,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="漕宝路1391号（近桂林路）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9J-EW-Jp7">
-                        <rect key="frame" x="124" y="51" width="265" height="20"/>
+                        <rect key="frame" x="124" y="50.5" width="280" height="19.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28米" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-6l-XXc">
-                        <rect key="frame" x="397" y="51" width="60" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28米" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-6l-XXc">
+                        <rect key="frame" x="412" y="50.5" width="60" height="20.5"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="Ekc-CO-Ewm"/>
@@ -72,15 +72,15 @@
                         <color key="textColor" red="1" green="0.33199983869999999" blue="0.076637344859999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="日常用品\水果生鲜\粮油面试\奶蛋\文具" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKr-x8-MvF">
-                        <rect key="frame" x="124" y="79" width="340" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日常用品\水果生鲜\粮油面试\奶蛋\文具" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKr-x8-MvF">
+                        <rect key="frame" x="124" y="78" width="340" height="16"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="1" green="0.33199983869999999" blue="0.076637344859999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="本月订单：1281" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quH-kA-aAT">
-                        <rect key="frame" x="124" y="103" width="340" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本月订单：1281" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quH-kA-aAT">
+                        <rect key="frame" x="124" y="102" width="340" height="20.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -89,7 +89,7 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="xO9-6l-XXc" secondAttribute="trailing" constant="15" id="0bq-dW-e9d"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xO9-6l-XXc" secondAttribute="trailing" id="0bq-dW-e9d"/>
                     <constraint firstItem="XjV-ed-qLL" firstAttribute="leading" secondItem="pCZ-d6-M6y" secondAttribute="trailing" constant="8" id="18k-ik-2tc"/>
                     <constraint firstItem="yKr-x8-MvF" firstAttribute="leading" secondItem="p9J-EW-Jp7" secondAttribute="leading" id="7Pd-kD-65i"/>
                     <constraint firstItem="XjV-ed-qLL" firstAttribute="centerY" secondItem="meY-IA-pfF" secondAttribute="centerY" id="9hw-DF-YEu"/>
@@ -133,4 +133,7 @@
             <point key="canvasLocation" x="220" y="353.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="6按钮_0002_1115_11_29" width="91" height="91"/>
+    </resources>
 </document>

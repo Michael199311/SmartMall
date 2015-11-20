@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalCost;
 @property (weak, nonatomic) IBOutlet UIButton *payButon;
+@property (strong, nonatomic) NSMutableArray *imageArr;
+@property (nonatomic, strong) SMButtomNavigater *bottomNavigater;
 
 @end
 
@@ -25,8 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"购物车";
+    self.bottomNavigater.controller =self;
 
+    self.title = @"购物车";
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"SMShoppingCartCell" bundle:nil] forCellReuseIdentifier:@"Cell"];
     // Do any additional setup after loading the view.
 }
@@ -35,7 +39,7 @@
     [super viewDidAppear:YES];
     [self upDateView];
     [self.tableView reloadData];
-
+    
 }
 
 - (IBAction)chooseAll:(UIButton *)sender {
@@ -52,9 +56,10 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"不能结算！" message:@"当前购物车没有物品" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }else{
-    SMSubmitOrderVC *vc = (SMSubmitOrderVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ConfirmOrder" andStroyBoardNameString:@"Main"];
-    //[self presentViewController:vc animated:YES completion:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+        SMSubmitOrderVC *vc = (SMSubmitOrderVC *)[UIStoryboard instantiateViewControllerWithIdentifier:@"ConfirmOrder" andStroyBoardNameString:@"Main"];
+        vc.imageArr = self.imageArr;
+        //[self presentViewController:vc animated:YES completion:nil];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -80,21 +85,24 @@
     //cell.amount = commodityArr.count;
     //SMModelCommodity *commodity = commodityArr[0];
     
-//    cell.amount = 0;
-//    for (SMModelCommodity *cmdy in self.dataSource) {
-//        if ([cmdy.cmdyEncode isEqualToString:commodity.cmdyEncode]) {
-//            cell.amount ++;
-//        }
-//    }
+    //    cell.amount = 0;
+    //    for (SMModelCommodity *cmdy in self.dataSource) {
+    //        if ([cmdy.cmdyEncode isEqualToString:commodity.cmdyEncode]) {
+    //            cell.amount ++;
+    //        }
+    //    }
     
     cell.amount = arr.count;
     cell.count.text = [NSString stringWithFormat:@"%ld",(long)cell.amount];
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:commodity.urls.firstObject]];
+    UIImage *image = [[UIImage alloc] init];
     if (data) {
-        cell.image.image = [UIImage imageWithData:data];
+        image = [UIImage imageWithData:data];
     }else{
-        cell.image.image = [UIImage imageNamed:@"commoditySample"];
+        image = [UIImage imageNamed:@"commoditySample"];
     }
+    [self.imageArr addObject:image];
+    cell.image.image = image;
     cell.price.text = [commodity.price stringValue];;
     cell.name.text = commodity.cmdyName;
     //[self awakeCellButtonAction:cell andCommodityArr:commodityArr];
@@ -124,65 +132,6 @@
     return header;
 }
 
-- (void)awakeCellButtonAction:(SMShoppingCartCell *)cell andIndex:( NSIndexPath *)indexPath{
-    __weak typeof (self) weakSelf = self;
-    __weak typeof (SMShoppingCartCell *) weakCell = cell;
-    __weak typeof (SMModelUser *)weakUser = [SMModelUser currentUser];
-    cell.buttonActionBlock = ^(NSDictionary *info, NSInteger type){
-        NSArray *arr = weakUser.commoditysArray[indexPath.row];
-        switch (type) {
-            case 0:
-                //选中该商品
-                
-                break;
-            case 1:
-                //减去一件该cell的商品
-                weakCell.amount --;
-                weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
-                break;
-            case 2:
-                //加上一件该cell的商品
-                
-                break;
-            default:
-                break;
-        }
-    };
-}
-
-- (void)awakeCellButtonAction:(SMShoppingCartCell *)cell andCommodityArr:(NSMutableArray *)commodityArr{
-    __weak typeof (self) weakSelf = self;
-    __weak typeof (SMShoppingCartCell *) weakCell = cell;
-   // __weak typeof (SMModelUser *)weakUser = [SMModelUser currentUser];
-    SMModelCommodity *commodity = commodityArr[0];
-    cell.buttonActionBlock = ^(NSDictionary *info, NSInteger type){
-        switch (type) {
-            case 0:
-                //选中该cell的商品
-                
-                break;
-            case 1:
-                //减去一件该cell的商品
-                weakCell.amount --;
-                weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
-                [commodityArr removeObjectAtIndex:0];
-                [weakSelf  upDateView];
-
-                break;
-            case 2:
-                //加一件该cell的商品
-                weakCell.amount ++;
-                weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
-                [commodityArr addObject:commodity];
-                [weakSelf upDateView];
-
-                break;
-            default:
-                break;
-        }
-    };
-}
-
 - (void)awakeCellButtonAction:(SMShoppingCartCell *)cell andCommodity:(SMModelCommodity *)commodity{
     __weak typeof (self) weakSelf = self;
     __weak typeof (SMShoppingCartCell *) weakCell = cell;
@@ -207,7 +156,7 @@
                 }
                 [weakUser.commoditysArray removeObjectAtIndex:a];
                 [weakSelf  upDateView];
-
+                
                 break;
             case 2:
                 //加一件该cell的商品
@@ -215,7 +164,7 @@
                 weakCell.count.text = [NSString stringWithFormat:@"%ld",(long)weakCell.amount];
                 [weakUser.commoditysArray addObject:commodity];
                 [weakSelf upDateView];
-
+                
                 break;
             default:
                 break;
@@ -250,8 +199,8 @@
     //NSArray *commodotys = [SMModelUser currentUser].commoditysArray;
     for (SMModelCommodity *commodity in [SMModelUser currentUser].commoditysArray) {
         //for (SMModelCommodity *commodity in cmdyArr) {
-            cost += [commodity.price doubleValue];
-            amout ++;
+        cost += [commodity.price doubleValue];
+        amout ++;
         //}
     }
     self.totalCost.text = [NSString stringWithFormat:@"合计:￥%.2f",cost];
@@ -264,14 +213,32 @@
     }
     return _dataSource;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSMutableArray *)imageArr{
+    if (!_imageArr) {
+        _imageArr = [[NSMutableArray alloc] init];
+    }
+    return _imageArr;
 }
-*/
+
+- (SMButtomNavigater *)bottomNavigater{
+    if (!_bottomNavigater) {
+        _bottomNavigater = [SMButtomNavigater sharedButtomNavigater];
+        _bottomNavigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        [self.view addSubview:self.bottomNavigater];
+    }
+    return _bottomNavigater;
+}
+
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

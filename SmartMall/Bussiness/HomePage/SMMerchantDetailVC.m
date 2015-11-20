@@ -13,6 +13,9 @@
 #import "CRDataSotreManage.h"
 #import "SMMerchantCollectionView.h"
 #import "SDCycleScrollView.h"
+#import "SMModelUser.h"
+#import "SMHomePageViewController.h"
+#import "SMButtomNavigater.h"
 
 #define kCount 6  //图片总张数
 
@@ -29,6 +32,7 @@ static long step = 0; //记录时钟动画调用次数
 @property (nonatomic, strong) SMMerchantCollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *adImgDatasource;
+@property (nonatomic, strong) SMButtomNavigater *bottomNavigater;
 
 @end
 
@@ -36,11 +40,45 @@ static long step = 0; //记录时钟动画调用次数
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bottomNavigater.controller =self;
+    //初始化导航栏左边按钮
+    UIBarButtonItem *backToMerchantListItem = [[UIBarButtonItem alloc] initWithTitle:@"商店列表" style:UIBarButtonItemStylePlain target:self action:@selector(backToMerchantList)];
+    [backToMerchantListItem setTitle:@"返回商店列表"];
+    self.navigationItem.backBarButtonItem = backToMerchantListItem;
+    
+    //初始化底部导航栏
+    
     [self.view addSubview:self.collectionView];
-    //[self.view addSubview:self.scrollView];
-    //[self createFakeData];
     self.title = @"商户详情";
+    [self reLogin];
+}
 
+
+
+- (void)initialBottomNavigater{
+    SMButtomNavigater *navigater = [SMButtomNavigater loadNibName:@"SMButtomNavigater"];
+    navigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+    [self.view addSubview:navigater];
+    navigater.controller = self;
+    
+}
+
+- (void)reLogin{
+    SMModelUser *localUser = [SMModelUser localUser];
+    NSLog(@"传入的参数:userName:%@,password:%@",localUser.name,localUser.password);
+    [AVUser logInWithUsernameInBackground:localUser.name password:localUser.password block:^(AVUser *user, NSError *error) {
+        if (user) {
+            [self loadData];
+        }else{
+            NSLog(@"登录失败");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法加载数据" message:@"缺少用户信息，请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            //[SVProgressHUD showErrorWithStatus:@"缺少用户信息，请重新登录！"];
+        }
+    }];
+}
+
+- (void)loadData{
     //获取该商店的数据
     NSDictionary *param = @{
                             @"mcEncode":self.mcEncode
@@ -76,7 +114,7 @@ static long step = 0; //记录时钟动画调用次数
                 [SVProgressHUD showErrorWithStatus:@"该店铺暂时没有商品"];
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
-            [self.collectionView loadView];
+                [self.collectionView loadView];
             }
         }
         //[self initImageView];
@@ -85,44 +123,11 @@ static long step = 0; //记录时钟动画调用次数
         [self.view addSubview:scrollView];
         [self.collectionView reloadData];
     }];
-    
-    
-    
 }
 
-- (void)createFakeData{
-    NSDictionary *fakeCmdys = @{
-                                @"cmdyName":@"天地粮人",
-                                @"price":@39.8,
-                                @"disPrice":@20,
-                                @"cmdyEncode":@"D0103002",
-                                @"stock":@"49",
-                                @"url":@"http://ac-pcyalv4v.clouddn.com/83eb42a4-e0ec-c000-feb6-327e5ac386f7.png"
-                                };
-    NSArray *fakeImages = @[@"http://ac-pcyalv4v.clouddn.com/8c25875e-83b1-22cf-be27-e77b079f3cca.png",
-                            @"http://ac-pcyalv4v.clouddn.com/8c25875e-83b1-22cf-be27-e77b079f3cca.png",
-                            @"http://ac-pcyalv4v.clouddn.com/8c25875e-83b1-22cf-be27-e77b079f3cca.png"];
-    NSDictionary *fakeData = @{
-                               @"cmdys":@[fakeCmdys],
-                               @"adImg":fakeImages
-                               };
-    NSArray *cmdys = fakeData[@"cmdys"];
-    for (NSDictionary *dic in cmdys) {
-        SMModelCommodity *commodity = [SMModelCommodity objectWithKeyValues:dic];
-        [self.dataSource addObject:commodity];
-    }
-    NSArray *array = fakeData[@"adImg"];
-    for (NSString *url in array) {
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-        if (data) {
-            UIImage *image = [UIImage imageWithData:data];
-            [self.adImgDatasource addObject:image];
-        }
-    }
-    self.collectionView.datasource = self.dataSource;
-    self.collectionView.controller = self;
-    [self initImageView];
-    [self.collectionView loadView];
+- (void)backToMerchantList{
+    SMHomePageViewController *homeController = (SMHomePageViewController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"HomePageVC" andStroyBoardNameString:@"Main"];
+    [self presentViewController:homeController animated:YES completion:nil];
 }
 
 - (void)initImageView{
@@ -232,7 +237,7 @@ static long step = 0; //记录时钟动画调用次数
     if (!_collectionView) {
         CGFloat y = self.scrollView.y + self.scrollView.height;
         UICollectionViewFlowLayout *layout= [[UICollectionViewFlowLayout alloc]init];
-        _collectionView = [[SMMerchantCollectionView alloc] initWithFrame:CGRectMake(0, y, self.view.width, self.view.height - y) collectionViewLayout:layout];
+        _collectionView = [[SMMerchantCollectionView alloc] initWithFrame:CGRectMake(0, y, self.view.width, self.view.height - y - 54) collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor clearColor];
     }
     return _collectionView;
@@ -272,6 +277,16 @@ static long step = 0; //记录时钟动画调用次数
     }
     return _mcEncode;
 }
+
+- (SMButtomNavigater *)bottomNavigater{
+    if (!_bottomNavigater) {
+        _bottomNavigater = [SMButtomNavigater sharedButtomNavigater];
+        _bottomNavigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        [self.view addSubview:self.bottomNavigater];
+    }
+    return _bottomNavigater;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

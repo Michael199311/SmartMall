@@ -7,7 +7,8 @@
 //
 
 #import "CRBaseViewController.h"
+#import "SMBaseViewController.h"
 
-@interface SMAddressListVC : UIViewController
+@interface SMAddressListVC : SMBaseViewController
 
 @end

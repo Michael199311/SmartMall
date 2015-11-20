@@ -85,8 +85,7 @@
 
 - (UIViewController *)creatHomeViewController
 {
-    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
-    homeController.selectedViewController = homeController.viewControllers[0];
+    UINavigationController *homeController = (UINavigationController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"homePageNav" andStroyBoardNameString:@"Main"];
     return homeController;
 }
 

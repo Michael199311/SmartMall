@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSMutableArray *buttonArray;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) SMButtomNavigater *bottomNavigater;
 
 
 @end
@@ -23,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bottomNavigater.controller =self;
+
     self.title = @"详细分类";
 
     //[self createButtons];
@@ -167,6 +170,16 @@
     }
     return _dataSource;
 }
+
+- (SMButtomNavigater *)bottomNavigater{
+    if (!_bottomNavigater) {
+        _bottomNavigater = [SMButtomNavigater sharedButtomNavigater];
+        _bottomNavigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        [self.view addSubview:self.bottomNavigater];
+    }
+    return _bottomNavigater;
+}
+
 /*
  #pragma mark - Navigation
  

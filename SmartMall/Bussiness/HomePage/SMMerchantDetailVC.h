@@ -7,8 +7,9 @@
 //
 
 #import "CRBaseViewController.h"
+#import "SMBaseViewController.h"
 
-@interface SMMerchantDetailVC : UIViewController
+@interface SMMerchantDetailVC :SMBaseViewController
 
 @property (nonatomic, strong) NSString *mcEncode;//商户编号
 

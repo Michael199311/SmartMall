@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shoppingCart;
 @property (weak, nonatomic) IBOutlet UIButton *addToShoppingCart;
 @property (strong, nonatomic) NSMutableArray *dataSource;
-
+@property (nonatomic, strong) SMButtomNavigater *bottomNavigater;
 @property (strong, nonatomic) SMModelCommodity *commodity;
 @end
 
@@ -28,7 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.bottomNavigater.controller =self;
+
     NSDictionary *param = @{
                             @"mcEncode":self.mcEncode,
                             @"cmdyEncode":self.cmdyEncode
@@ -66,10 +67,9 @@
 //    if (self.dataSource.count != 0) {
 //        [[SMModelUser currentUser].commoditysArray addObject:self.dataSource];
 //    }
-    UITabBarController *homeController = (UITabBarController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"SMTableBarVC" andStroyBoardNameString:@"Main"];
-    homeController.selectedViewController = homeController.viewControllers[1];
-    
-    [self.navigationController pushViewController:homeController animated:YES];
+    UINavigationController *vc = (UINavigationController *)[UIStoryboard instantiateViewControllerWithIdentifier:@"shoppingCartNav" andStroyBoardNameString:@"Main"];
+    //[self.navigationController pushViewController:homeController animated:YES];
+    [self presentViewController:vc animated:YES completion:nil];
 
     //[self presentViewController:homeController animated:YES completion:nil];
 }
@@ -79,6 +79,7 @@
     //[self.dataSource addObject:self.commodity];
     SMModelUser *user = [SMModelUser currentUser];
     [user.commoditysArray addObject:self.commodity];
+    [SVProgressHUD showSuccessWithStatus:@"添加到购物车成功"];
 //    [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)self.dataSource.count] forState:UIControlStateNormal];
     [self.shoppingCart setTitle:[NSString stringWithFormat:@"购物车(%lu)",(unsigned long)user.commoditysArray.count] forState:UIControlStateNormal];
 
@@ -89,6 +90,14 @@
         _dataSource = [[NSMutableArray alloc] init];
     }
     return _dataSource;
+}
+- (SMButtomNavigater *)bottomNavigater{
+    if (!_bottomNavigater) {
+        _bottomNavigater = [SMButtomNavigater sharedButtomNavigater];
+        _bottomNavigater.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        [self.view addSubview:self.bottomNavigater];
+    }
+    return _bottomNavigater;
 }
 
 

@@ -7,8 +7,9 @@
 //
 
 #import "CRBaseViewController.h"
+#import "SMBaseViewController.h"
 
-@interface SMClassifyDetailVC : UIViewController
+@interface SMClassifyDetailVC : SMBaseViewController
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) NSArray *buttonTitles;
